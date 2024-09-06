@@ -48,14 +48,14 @@ const Game = (function() {
                 gameBoard[index] = 'X';
             } else {
                 alert('already choosen, start round from start');
-                playRound()
+                // playRound()
             }
         }  else if (roundCount.getRoundCount() % 2 === 0) {
             if (gameBoard.includes(input)) {
                 gameBoard[index] = 'O';
             } else {
                 alert('already choosen, start round from start');
-                playRound()
+                // playRound()
             }
         }
         console.log(gameBoard);
@@ -65,32 +65,54 @@ const Game = (function() {
 
     // Function to check for win
     function checkForWin() {
-        if (gameBoard[0] === 'X' && gameBoard[3] === 'X' && gameBoard[6] === 'X') {
-            console.log('Player 1 wins!')
-        }
-        if (gameBoard[1] === 'X' && gameBoard[4] === 'X' && gameBoard[7] === 'X') {
-            console.log('Player 1 wins!')
-        }
-        if (gameBoard[2] === 'X' && gameBoard[5] === 'X' && gameBoard[8] === 'X') {
-            console.log('Player 1 wins!')
-        }
+        const winningCombinations = [
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+          ];
+          
+          for (const combination of winningCombinations) {
+            if (gameBoard[combination[0]] === 'X' &&
+                gameBoard[combination[1]] === 'X' &&
+                gameBoard[combination[2]] === 'X') {
+              console.log('Player 1 wins!');
+              return true;
+            } else if (gameBoard[combination[0]] === 'O' &&
+                       gameBoard[combination[1]] === 'O' &&
+                       gameBoard[combination[2]] === 'O') {
+              console.log('Player 2 wins!');
+              return true;
+            }
+          }
     }
 
     // Function to play nine rounds or till one wins
     function playGame() {
         while (roundCount.getRoundCount() <= 5) {
             playRound()
-            checkForWin()
+            if (checkForWin() === true) {
+                break
+            } 
+        }
+        if (checkForWin() !== true) {
+            console.log('Tie!')
         }
     }
-    // playGame();
+    playGame();
 
 })();
 
 /* 
 TO DO
-- build better function for check win function (don't repeat!)
 - restart playRound() not working correctly for now
 - 
+
+DONE
+- build better function for check win function (don't repeat!)
 
 */
