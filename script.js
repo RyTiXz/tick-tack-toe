@@ -13,7 +13,7 @@ const Game = (function() {
     ];
 
 
-    // Function to create player and to keep track on gameScore
+    // Factory Function to create player and to keep track on gameScore
     function newPlayer(name) {
         let GameScore = 0;
         const getGameScore = () => GameScore;
@@ -25,7 +25,7 @@ const Game = (function() {
     const player2 = newPlayer('Tobi'); // Should be replaced with user input
     
 
-    // Function to create number of played rounds
+    // Factory Function to create number of played rounds
     function newRound() {
         let roundCount = 1;
         const getRoundCount = () => roundCount;
