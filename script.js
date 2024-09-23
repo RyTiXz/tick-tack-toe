@@ -203,7 +203,10 @@ const Game = (function() {
 
     return {
         playGame: playGame,
-        resetGame: resetGame
+        initGame: initGame,
+        resetGame: resetGame,
+        turnCount: turnCount.getTurnCount,
+        roundCount: roundCount.getRoundCount,
     }
 
 })();
