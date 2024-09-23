@@ -50,6 +50,22 @@ const Game = (function() {
 
     const roundCount = newRound();
 
+    // Factory Function to create number of played turns
+    function newTurn() {
+        let turnCount = 1;
+        const getTurnCount = () => turnCount;
+        const increaseTurnCount = () => turnCount++;
+        const resetTurnCount = () => turnCount = 1;
+
+        return {
+            getTurnCount,
+            increaseTurnCount,
+            resetTurnCount
+        }
+    }
+
+    const turnCount = newTurn();
+
     // Function to set back Gameboard and RoundCount to initial vlaues
     function initGame() {
         gameBoard = [
@@ -57,7 +73,7 @@ const Game = (function() {
             4, 5, 6,
             7, 8, 9
         ];
-        roundCount.resetRoundCount();
+        turnCount.resetTurnCount();
     }
 
     // Function to reset complete game
@@ -68,12 +84,13 @@ const Game = (function() {
             7, 8, 9
         ];
         roundCount.resetRoundCount();
+        turnCount.resetTurnCount();
         player1.resetGameScore();
         player2.resetGameScore();
     }
 
-    // Function to play one round
-    function playRound() {
+    // Function to play one turn
+    function playTurn() {
         // Get user input
         let input;
         do {
@@ -87,11 +104,11 @@ const Game = (function() {
 
         // Replace user choice in game array
         const index = gameBoard.indexOf(input)
-        if (roundCount.getRoundCount() % 2 !== 0) {
+        if (turnCount.getTurnCount() % 2 !== 0) {
             if (gameBoard.includes(input)) {
                 gameBoard[index] = 'X';
             }
-        } else if (roundCount.getRoundCount() % 2 === 0) {
+        } else if (turnCount.getTurnCount() % 2 === 0) {
             if (gameBoard.includes(input)) {
                 gameBoard[index] = 'O';
             }
@@ -116,32 +133,47 @@ const Game = (function() {
                 gameBoard[combination[1]] === 'X' &&
                 gameBoard[combination[2]] === 'X') {
                 player1.increaseGameScore();
+                roundCount.increaseRoundCount();
                 alert(player1.name + ' wins!')
                 return true;
             } else if (gameBoard[combination[0]] === 'O' &&
                 gameBoard[combination[1]] === 'O' &&
                 gameBoard[combination[2]] === 'O') {
                 player2.increaseGameScore();
+                roundCount.increaseRoundCount();
                 alert(player2.name + ' wins!')
                 return true;
             }
         }
     }
 
-    // Function to play nine rounds or till one wins
+    // Function to play nine turns or till one wins
     function playGame() {
-        while (roundCount.getRoundCount() <= 5) {
+        if (roundCount.getRoundCount() <= 4) {
             console.log({
-                RoundCount: roundCount.getRoundCount(),
+                Round: roundCount.getRoundCount(),
             });
-            playRound()
+            playOneTurn()
+            console.log(gameBoard);
+        } else {
+            resetGame();
+        }
+    }
+
+    // Function to play nine turns or till one wins
+    function playOneTurn() {
+        while (turnCount.getTurnCount() <= 9) {
+            console.log({
+                Turn: turnCount.getTurnCount()
+            });
+            playTurn()
             if (checkForWin() === true) {
                 break
             }
-            if (roundCount.getRoundCount() === 5) {
+            if (turnCount.getTurnCount() === 9) {
                 alert('Tie!')
             }
-            roundCount.increaseRoundCount();
+            turnCount.increaseTurnCount();
             console.log(gameBoard);
         }
         console.log({
@@ -153,6 +185,7 @@ const Game = (function() {
             GameScore: player2.getGameScore()
         })
         initGame();
+
     }
 
     return {
@@ -169,7 +202,7 @@ TO DO
 
 DONE
 - build better function for check win function (don't repeat!)
-- restart playRound() not working correctly for now
+- restart playTurn() not working correctly for now
 - playGame() giving two winner alerts, but Tie working correctly
 
 */
