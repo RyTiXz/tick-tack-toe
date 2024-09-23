@@ -7,8 +7,8 @@
 
 const Game = (function() {
     let gameBoard = [
-        1, 2, 3, 
-        4, 5, 6, 
+        1, 2, 3,
+        4, 5, 6,
         7, 8, 9
     ];
 
@@ -18,33 +18,43 @@ const Game = (function() {
         const getGameScore = () => GameScore;
         const increaseGameScore = () => GameScore++;
         const resetGameScore = () => GameScore = 0;
-        
-        return {name, marker, getGameScore, increaseGameScore, resetGameScore};
+
+        return {
+            name,
+            marker,
+            getGameScore,
+            increaseGameScore,
+            resetGameScore
+        };
     }
-    
+
     const player1 = Player('Flo', 'X');
-    const player2 = Player('Tobi', 'O');    
-    
+    const player2 = Player('Tobi', 'O');
+
     // const player1 = Player(prompt('Insert player 1 name'), 'X');
     // const player2 = Player(prompt('Insert player 2 name'), 'O');
-    
+
     // Factory Function to create number of played rounds
     function newRound() {
         let roundCount = 1;
         const getRoundCount = () => roundCount;
         const increaseRoundCount = () => roundCount++;
         const resetRoundCount = () => roundCount = 1;
-        
-        return {getRoundCount, increaseRoundCount, resetRoundCount}
+
+        return {
+            getRoundCount,
+            increaseRoundCount,
+            resetRoundCount
+        }
     }
-    
+
     const roundCount = newRound();
-    
+
     // Function to set back Gameboard and RoundCount to initial vlaues
     function initGame() {
         gameBoard = [
-            1, 2, 3, 
-            4, 5, 6, 
+            1, 2, 3,
+            4, 5, 6,
             7, 8, 9
         ];
         roundCount.resetRoundCount();
@@ -53,8 +63,8 @@ const Game = (function() {
     // Function to reset complete game
     function resetGame() {
         gameBoard = [
-            1, 2, 3, 
-            4, 5, 6, 
+            1, 2, 3,
+            4, 5, 6,
             7, 8, 9
         ];
         roundCount.resetRoundCount();
@@ -67,27 +77,27 @@ const Game = (function() {
         // Get user input
         let input;
         do {
-            input =  Number(prompt('choose 1-9'))
+            input = Number(prompt('choose 1-9'))
             if (isNaN(input) || isNaN('') || input > 9 || input < 1) {
                 alert('Wrong input. Please choose a number between 1-9')
             } else if (!(gameBoard.includes(input))) {
                 alert('already chosen, please choose again')
-            } 
+            }
         } while (!(gameBoard.includes(input)))
-        
+
         // Replace user choice in game array
         const index = gameBoard.indexOf(input)
         if (roundCount.getRoundCount() % 2 !== 0) {
             if (gameBoard.includes(input)) {
                 gameBoard[index] = 'X';
-            } 
-        }  else if (roundCount.getRoundCount() % 2 === 0) {
+            }
+        } else if (roundCount.getRoundCount() % 2 === 0) {
             if (gameBoard.includes(input)) {
                 gameBoard[index] = 'O';
-            } 
+            }
         }
     }
-    
+
     // Function to check for win
     function checkForWin() {
         const winningCombinations = [
@@ -99,25 +109,25 @@ const Game = (function() {
             [6, 7, 8],
             [0, 4, 8],
             [2, 4, 6]
-          ];
-          
-          for (const combination of winningCombinations) {
+        ];
+
+        for (const combination of winningCombinations) {
             if (gameBoard[combination[0]] === 'X' &&
                 gameBoard[combination[1]] === 'X' &&
                 gameBoard[combination[2]] === 'X') {
-                    player1.increaseGameScore();
-                    alert(player1.name + ' wins!')
-              return true;
+                player1.increaseGameScore();
+                alert(player1.name + ' wins!')
+                return true;
             } else if (gameBoard[combination[0]] === 'O' &&
-                       gameBoard[combination[1]] === 'O' &&
-                       gameBoard[combination[2]] === 'O') {
-                        player2.increaseGameScore();
-                        alert(player2.name + ' wins!')
-                        return true;
-                    } 
-                }
+                gameBoard[combination[1]] === 'O' &&
+                gameBoard[combination[2]] === 'O') {
+                player2.increaseGameScore();
+                alert(player2.name + ' wins!')
+                return true;
             }
-            
+        }
+    }
+
     // Function to play nine rounds or till one wins
     function playGame() {
         while (roundCount.getRoundCount() <= 5) {
@@ -127,7 +137,7 @@ const Game = (function() {
             playRound()
             if (checkForWin() === true) {
                 break
-            } 
+            }
             if (roundCount.getRoundCount() === 5) {
                 alert('Tie!')
             }
@@ -149,9 +159,8 @@ const Game = (function() {
         playGame: playGame,
         resetGame: resetGame
     }
-    
-})();
 
+})();
 /* 
 TO DO
 - work on refactoring spaghetti code. Learn how to do this
