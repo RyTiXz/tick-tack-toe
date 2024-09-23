@@ -133,35 +133,45 @@ const Game = (function() {
                 gameBoard[combination[1]] === 'X' &&
                 gameBoard[combination[2]] === 'X') {
                 player1.increaseGameScore();
-                roundCount.increaseRoundCount();
-                alert(player1.name + ' wins!')
+                console.log(gameBoard);
+                console.log(player1.name + ' wins round ' + roundCount.getRoundCount() + '!')
                 return true;
             } else if (gameBoard[combination[0]] === 'O' &&
                 gameBoard[combination[1]] === 'O' &&
                 gameBoard[combination[2]] === 'O') {
                 player2.increaseGameScore();
-                roundCount.increaseRoundCount();
-                alert(player2.name + ' wins!')
+                console.log(gameBoard);
+                console.log(player2.name + ' wins round ' + roundCount.getRoundCount() + '!')
                 return true;
             }
         }
     }
 
-    // Function to play nine turns or till one wins
+    function checkForGameWinner() {
+        if (player1.getGameScore() > player2.getGameScore()) {
+            console.log('Game Winner: ' + player1.name);
+        } else if (player1.getGameScore() < player2.getGameScore()) {
+            console.log('Game Winner: ' + player2.name);
+        } else {
+            console.log('Game ended in a tie!')
+        }
+    }
+
+    // Function to play three rounds
     function playGame() {
-        if (roundCount.getRoundCount() <= 4) {
+        if (roundCount.getRoundCount() <= 3) {
             console.log({
                 Round: roundCount.getRoundCount(),
             });
-            playOneTurn()
-            console.log(gameBoard);
+            playAllTurns()
+            roundCount.increaseRoundCount();
         } else {
             resetGame();
         }
     }
 
-    // Function to play nine turns or till one wins
-    function playOneTurn() {
+    // Function to play max. all nine turns or till one wins
+    function playAllTurns() {
         while (turnCount.getTurnCount() <= 9) {
             console.log({
                 Turn: turnCount.getTurnCount()
@@ -173,8 +183,8 @@ const Game = (function() {
             if (turnCount.getTurnCount() === 9) {
                 alert('Tie!')
             }
-            turnCount.increaseTurnCount();
             console.log(gameBoard);
+            turnCount.increaseTurnCount();
         }
         console.log({
             Player: player1.name,
@@ -184,6 +194,9 @@ const Game = (function() {
             Player: player2.name,
             GameScore: player2.getGameScore()
         })
+        if (roundCount.getRoundCount() == 3) {
+            checkForGameWinner();
+        } 
         initGame();
 
     }
