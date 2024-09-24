@@ -25,31 +25,142 @@ const Game = (function() {
         field.addEventListener('click', (clicked_id) => {
             if(clicked_id.target.id === 'one') {
                 input = 1;
+                const index = gameBoard.indexOf(input)
+                if (turnCount.getTurnCount() % 2 !== 0) {
+                    if (gameBoard.includes(input)) {
+                        gameBoard[index] = 'X';
+                        field.textContent = 'X'
+                    }
+                } else if (turnCount.getTurnCount() % 2 === 0) {
+                    if (gameBoard.includes(input)) {
+                        gameBoard[index] = 'O';
+                        field.textContent = 'O';
+                    }
+                }
             }
             if(clicked_id.target.id === 'two') {
                 input = 2;
+                const index = gameBoard.indexOf(input)
+                if (turnCount.getTurnCount() % 2 !== 0) {
+                    if (gameBoard.includes(input)) {
+                        gameBoard[index] = 'X';
+                        field.textContent = 'X'
+                    }
+                } else if (turnCount.getTurnCount() % 2 === 0) {
+                    if (gameBoard.includes(input)) {
+                        gameBoard[index] = 'O';
+                        field.textContent = 'O';
+                    }
+                }
             }
             if(clicked_id.target.id === 'three') {
                 input = 3;
+                const index = gameBoard.indexOf(input)
+                if (turnCount.getTurnCount() % 2 !== 0) {
+                    if (gameBoard.includes(input)) {
+                        gameBoard[index] = 'X';
+                        field.textContent = 'X'
+                    }
+                } else if (turnCount.getTurnCount() % 2 === 0) {
+                    if (gameBoard.includes(input)) {
+                        gameBoard[index] = 'O';
+                        field.textContent = 'O';
+                    }
+                }
             }
             if(clicked_id.target.id === 'four') {
                 input = 4;
+                const index = gameBoard.indexOf(input)
+                if (turnCount.getTurnCount() % 2 !== 0) {
+                    if (gameBoard.includes(input)) {
+                        gameBoard[index] = 'X';
+                        field.textContent = 'X'
+                    }
+                } else if (turnCount.getTurnCount() % 2 === 0) {
+                    if (gameBoard.includes(input)) {
+                        gameBoard[index] = 'O';
+                        field.textContent = 'O';
+                    }
+                }
             }
             if(clicked_id.target.id === 'five') {
                 input = 5;
+                const index = gameBoard.indexOf(input)
+                if (turnCount.getTurnCount() % 2 !== 0) {
+                    if (gameBoard.includes(input)) {
+                        gameBoard[index] = 'X';
+                        field.textContent = 'X'
+                    }
+                } else if (turnCount.getTurnCount() % 2 === 0) {
+                    if (gameBoard.includes(input)) {
+                        gameBoard[index] = 'O';
+                        field.textContent = 'O';
+                    }
+                }
             }
             if(clicked_id.target.id === 'six') {
                 input = 6;
+                const index = gameBoard.indexOf(input)
+                if (turnCount.getTurnCount() % 2 !== 0) {
+                    if (gameBoard.includes(input)) {
+                        gameBoard[index] = 'X';
+                        field.textContent = 'X'
+                    }
+                } else if (turnCount.getTurnCount() % 2 === 0) {
+                    if (gameBoard.includes(input)) {
+                        gameBoard[index] = 'O';
+                        field.textContent = 'O';
+                    }
+                }
             }
             if(clicked_id.target.id === 'seven') {
                 input = 7;
+                const index = gameBoard.indexOf(input)
+                if (turnCount.getTurnCount() % 2 !== 0) {
+                    if (gameBoard.includes(input)) {
+                        gameBoard[index] = 'X';
+                        field.textContent = 'X'
+                    }
+                } else if (turnCount.getTurnCount() % 2 === 0) {
+                    if (gameBoard.includes(input)) {
+                        gameBoard[index] = 'O';
+                        field.textContent = 'O';
+                    }
+                }
             }
             if(clicked_id.target.id === 'eight') {
                 input = 8;
+                const index = gameBoard.indexOf(input)
+                if (turnCount.getTurnCount() % 2 !== 0) {
+                    if (gameBoard.includes(input)) {
+                        gameBoard[index] = 'X';
+                        field.textContent = 'X'
+                    }
+                } else if (turnCount.getTurnCount() % 2 === 0) {
+                    if (gameBoard.includes(input)) {
+                        gameBoard[index] = 'O';
+                        field.textContent = 'O';
+                    }
+                }
             }
             if(clicked_id.target.id === 'nine') {
                 input = 9;
+                const index = gameBoard.indexOf(input)
+                if (turnCount.getTurnCount() % 2 !== 0) {
+                    if (gameBoard.includes(input)) {
+                        gameBoard[index] = 'X';
+                        field.textContent = 'X'
+                    }
+                } else if (turnCount.getTurnCount() % 2 === 0) {
+                    if (gameBoard.includes(input)) {
+                        gameBoard[index] = 'O';
+                        field.textContent = 'O';
+                    }
+                }
             }
+            turnCount.increaseTurnCount();
+            checkForWin();
+            checkForGameWinner();
         })
     }
 
@@ -133,15 +244,15 @@ const Game = (function() {
     // Function to play one turn
     function playTurn() {
         // Get user input
-        let input;
-        do {
-            input = Number(prompt('choose 1-9'))
-            if (isNaN(input) || isNaN('') || input > 9 || input < 1) {
-                alert('Wrong input. Please choose a number between 1-9')
-            } else if (!(gameBoard.includes(input))) {
-                alert('already chosen, please choose again')
-            }
-        } while (!(gameBoard.includes(input)))
+        // let input;
+        // do {
+        //     input = Number(prompt('choose 1-9'))
+        //     if (isNaN(input) || isNaN('') || input > 9 || input < 1) {
+        //         alert('Wrong input. Please choose a number between 1-9')
+        //     } else if (!(gameBoard.includes(input))) {
+        //         alert('already chosen, please choose again')
+        //     }
+        // } while (!(gameBoard.includes(input)))
 
         // Replace user choice in game array
         const index = gameBoard.indexOf(input)
@@ -189,12 +300,14 @@ const Game = (function() {
     }
 
     function checkForGameWinner() {
-        if (player1.getGameScore() > player2.getGameScore()) {
-            console.log('Game Winner: ' + player1.name);
-        } else if (player1.getGameScore() < player2.getGameScore()) {
-            console.log('Game Winner: ' + player2.name);
-        } else {
-            console.log('Game ended in a tie!')
+        if (roundCount.getRoundCount === 3) {
+            if (player1.getGameScore() > player2.getGameScore()) {
+                console.log('Game Winner: ' + player1.name);
+            } else if (player1.getGameScore() < player2.getGameScore()) {
+                console.log('Game Winner: ' + player2.name);
+            } else {
+                console.log('Game ended in a tie!')
+            }
         }
     }
 
@@ -248,6 +361,7 @@ const Game = (function() {
         resetGame: resetGame,
         turnCount: turnCount.getTurnCount,
         roundCount: roundCount.getRoundCount,
+        gameBoard: gameBoard
     }
 
 })();
@@ -255,6 +369,10 @@ const Game = (function() {
 TO DO
 - work on refactoring spaghetti code. Learn how to do this
 - Better understand how to write good functions
+- Game can be continued while already a winner is declared 
+- Roundcount not counting
+- Score count not counting
+- refractor click eventListener Code
 
 
 DONE
