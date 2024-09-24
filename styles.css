@@ -44,6 +44,7 @@ body {
 .gameStart {
     grid-area: 2 / 2 / 3 / 3;
     margin: 5px;
+    visibility: hidden;
 }
 
 .gameReset {

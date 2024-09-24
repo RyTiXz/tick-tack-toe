@@ -1,5 +1,4 @@
 
-
 const Game = (function() {
     let gameBoard = [
         1, 2, 3,
@@ -8,20 +7,24 @@ const Game = (function() {
     ];
 
     // Querry selector
-    const fieldClick = document.querySelectorAll('.field');
-    const gameStart = document.querySelector('.gameStart');
-    const gameReset = document.querySelector('.gameReset');
+    const divFieldClick = document.querySelectorAll('.field');
+    const divGameStart = document.querySelector('.gameStart');
+    const divGameReset = document.querySelector('.gameReset');
+    const divRoundCount = document.querySelector('#roundCounter')
+    const divScoreCountP1 = document.querySelector('#scorePlayer1')
+    const divScoreCountP2 = document.querySelector('#scorePlayer2')
 
     // Event Listener
-    gameStart.addEventListener('click', () => {
-        Game.playGame();
+    divGameStart.addEventListener('click', () => {
+        playRound();
     })
   
-    gameReset.addEventListener('click', () => {
-        Game.resetGame();
+    divGameReset.addEventListener('click', () => {
+        resetGame();
     })
 
-    for (const field of fieldClick) {
+    // Function to build game field and check for win condition
+    for (const field of divFieldClick) {
         function checkTurnAndSetChoice() {
             do {
                 if (!(gameBoard.includes(input))) {
@@ -44,45 +47,49 @@ const Game = (function() {
             }
         }
         field.addEventListener('click', (clicked_id) => {
-            if(clicked_id.target.id === 'one') {
-                input = 1;
-                checkTurnAndSetChoice();
+            if (roundCount.getRoundCount() <= 3) {
+                if(clicked_id.target.id === 'one') {
+                    input = 1;
+                    checkTurnAndSetChoice();
+                }
+                if(clicked_id.target.id === 'two') {
+                    input = 2;
+                    checkTurnAndSetChoice();
+                }
+                if(clicked_id.target.id === 'three') {
+                    input = 3;
+                    checkTurnAndSetChoice();
+                }
+                if(clicked_id.target.id === 'four') {
+                    input = 4;
+                    checkTurnAndSetChoice();
+                }
+                if(clicked_id.target.id === 'five') {
+                    input = 5;
+                    checkTurnAndSetChoice();
+                }
+                if(clicked_id.target.id === 'six') {
+                    input = 6;
+                    checkTurnAndSetChoice();
+                }
+                if(clicked_id.target.id === 'seven') {
+                    input = 7;
+                    checkTurnAndSetChoice();
+                }
+                if(clicked_id.target.id === 'eight') {
+                    input = 8;
+                    checkTurnAndSetChoice();
+                }
+                if(clicked_id.target.id === 'nine') {
+                    input = 9;
+                    checkTurnAndSetChoice();
+                }
+                turnCount.increaseTurnCount();
+                checkForWin();
+                checkForGameWinner();
+            } else {
+                alert('Please reset game via button')
             }
-            if(clicked_id.target.id === 'two') {
-                input = 2;
-                checkTurnAndSetChoice();
-            }
-            if(clicked_id.target.id === 'three') {
-                input = 3;
-                checkTurnAndSetChoice();
-            }
-            if(clicked_id.target.id === 'four') {
-                input = 4;
-                checkTurnAndSetChoice();
-            }
-            if(clicked_id.target.id === 'five') {
-                input = 5;
-                checkTurnAndSetChoice();
-            }
-            if(clicked_id.target.id === 'six') {
-                input = 6;
-                checkTurnAndSetChoice();
-            }
-            if(clicked_id.target.id === 'seven') {
-                input = 7;
-                checkTurnAndSetChoice();
-            }
-            if(clicked_id.target.id === 'eight') {
-                input = 8;
-                checkTurnAndSetChoice();
-            }
-            if(clicked_id.target.id === 'nine') {
-                input = 9;
-                checkTurnAndSetChoice();
-            }
-            turnCount.increaseTurnCount();
-            checkForWin();
-            checkForGameWinner();
         })
     }
 
@@ -142,16 +149,6 @@ const Game = (function() {
 
     const turnCount = newTurn();
 
-    // Function to set back Gameboard and RoundCount to initial vlaues (obsolet)
-    // function initGame() {
-    //     gameBoard = [
-    //         1, 2, 3,
-    //         4, 5, 6,
-    //         7, 8, 9
-    //     ];
-    //     turnCount.resetTurnCount();
-    // }
-
     // Function to reset complete game
     function resetGame() {
         gameBoard = [
@@ -163,36 +160,19 @@ const Game = (function() {
         turnCount.resetTurnCount();
         player1.resetGameScore();
         player2.resetGameScore();
-        for (const field of fieldClick) {
+        updateGameScore();
+        makeButtonHide();
+        for (const field of divFieldClick) {
             field.textContent = '';
         }
     }
 
-    // Function to play one turn (obsolet)
-    // function playTurn() {
-    //     // Get user input
-    //     // let input;
-    //     do {
-    //         input = Number(prompt('choose 1-9'))
-    //         if (isNaN(input) || isNaN('') || input > 9 || input < 1) {
-    //             alert('Wrong input. Please choose a number between 1-9')
-    //         } else if (!(gameBoard.includes(input))) {
-    //             alert('already chosen, please choose again')
-    //         }
-    //     } while (!(gameBoard.includes(input)))
-
-    //     // Replace user choice in game array
-    //     const index = gameBoard.indexOf(input)
-    //     if (turnCount.getTurnCount() % 2 !== 0) {
-    //         if (gameBoard.includes(input)) {
-    //             gameBoard[index] = 'X';
-    //         }
-    //     } else if (turnCount.getTurnCount() % 2 === 0) {
-    //         if (gameBoard.includes(input)) {
-    //             gameBoard[index] = 'O';
-    //         }
-    //     }
-    // }
+    // Function to update Game Scores
+    function updateGameScore() {
+        divRoundCount.textContent = roundCount.getRoundCount();
+        divScoreCountP1.textContent = player1.getGameScore();
+        divScoreCountP2.textContent = player2.getGameScore();
+    }
 
     // Function to check for win
     function checkForWin() {
@@ -212,20 +192,28 @@ const Game = (function() {
                 gameBoard[combination[1]] === 'X' &&
                 gameBoard[combination[2]] === 'X') {
                 player1.increaseGameScore();
-                alert(player1.name + ' wins round ' + roundCount.getRoundCount() + '! He has now a gamescore of: ' + player1.getGameScore());
+                updateGameScore();
+                makeButtonVisible();
+                roundCount.increaseRoundCount();
+                console.log(player1.name + ' wins round ' + roundCount.getRoundCount() + '! He has now a gamescore of: ' + player1.getGameScore());
                 return true;
             } else if (gameBoard[combination[0]] === 'O' &&
                 gameBoard[combination[1]] === 'O' &&
                 gameBoard[combination[2]] === 'O') {
                 player2.increaseGameScore();
-                alert(player2.name + ' wins round ' + roundCount.getRoundCount() + '! He has now a gamescore of: ' + player2.getGameScore());
+                updateGameScore();
+                makeButtonVisible();
+                roundCount.increaseRoundCount();
+                console.log(player2.name + ' wins round ' + roundCount.getRoundCount() + '! He has now a gamescore of: ' + player2.getGameScore());
                 return true;
             }
         }
+        
     }
 
+    // Function to check for Game winner after 3 Rounds
     function checkForGameWinner() {
-        if (roundCount.getRoundCount === 3) {
+        if (roundCount.getRoundCount() === 4) {
             if (player1.getGameScore() > player2.getGameScore()) {
                 console.log('Game Winner: ' + player1.name);
             } else if (player1.getGameScore() < player2.getGameScore()) {
@@ -236,52 +224,39 @@ const Game = (function() {
         }
     }
 
-    // Function to play three rounds
-    function playGame() {
+    // Function to start new round
+    function playRound() {
         gameBoard = [
             1, 2, 3,
             4, 5, 6,
             7, 8, 9
         ];
         turnCount.resetTurnCount();
-        for (const field of fieldClick) {
+        updateGameScore();
+        for (const field of divFieldClick) {
             field.textContent = '';
         }
+        // This if statement does not work correctly!!
+        // if (roundCount.getRoundCount() === 1 
+        //     && player1.getGameScore() > 0 
+        //     || player2.getGameScore > 0) {
+        //     roundCount.increaseRoundCount();
+        //     updateGameScore();
+        // }
     }
 
-    // Function to play max. all nine turns or till one wins (obsolet)
-    // function playAllTurns() {
-    //     while (turnCount.getTurnCount() <= 9) {
-    //         console.log({
-    //             Turn: turnCount.getTurnCount()
-    //         });
-    //         playTurn()
-    //         if (checkForWin() === true) {
-    //             break
-    //         }
-    //         if (turnCount.getTurnCount() === 9) {
-    //             alert('Tie!')
-    //         }
-    //         console.log(gameBoard);
-    //         turnCount.increaseTurnCount();
-    //     }
-    //     console.log({
-    //         Player: player1.name,
-    //         GameScore: player1.getGameScore()
-    //     })
-    //     console.log({
-    //         Player: player2.name,
-    //         GameScore: player2.getGameScore()
-    //     })
-    //     if (roundCount.getRoundCount() == 3) {
-    //         checkForGameWinner();
-    //     } 
-    //     initGame();
+    // Function to only show 'start round' button after round 1
+    function makeButtonVisible() {
+        divGameStart.style.visibility = 'visible';
+    }
 
-    // }
+    // Function to hide button when game gets resettet
+    function makeButtonHide() {
+        divGameStart.style.visibility = 'hidden';    
+    }
 
     return {
-        playGame: playGame,
+        playRound: playRound,
         resetGame: resetGame,
         turnCount: turnCount.getTurnCount,
         roundCount: roundCount.getRoundCount,
@@ -289,20 +264,20 @@ const Game = (function() {
     }
 
 })();
-/* 
-TO DO
-- work on refactoring spaghetti code. Learn how to do this
-- Better understand how to write good functions
-- Game can be continued while already a winner is declared 
-- Roundcount not counting
-- Score count not counting
-- refractor click eventListener Code
-- Build ingame display to show winner
 
+/* 
+TO DO:
+MANDATORY
+- Game can be continued while already a winner is declared 
+- Build ingame display to show winner
+- Style game
+OPTIONAL
+- refractor click eventListener Code
 
 DONE
 - build better function for check win function (don't repeat!)
 - restart playTurn() not working correctly for now
-- playGame() giving two winner alerts, but Tie working correctly
+- playRound() giving two winner alerts, but Tie working correctly
+- update of roundCound on website not working correct
 
 */
