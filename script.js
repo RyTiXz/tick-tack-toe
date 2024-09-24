@@ -102,8 +102,8 @@ const Game = (function() {
         };
     }
 
-    const player1 = Player('Flo', 'X');
-    const player2 = Player('Tobi', 'O');
+    const player1 = Player('Player 1', 'X');
+    const player2 = Player('Player 2', 'O');
 
     // const player1 = Player(prompt('Insert player 1 name'), 'X');
     // const player2 = Player(prompt('Insert player 2 name'), 'O');
