@@ -22,7 +22,7 @@ const Game = (function() {
     })
 
     for (const field of fieldClick) {
-        field.addEventListener('click', function(clicked_id) {
+        field.addEventListener('click', (clicked_id) => {
             if(clicked_id.target.id === 'one') {
                 input = 1;
             }
