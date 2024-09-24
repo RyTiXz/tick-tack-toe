@@ -255,20 +255,12 @@ const Game = (function() {
         divGameStart.style.visibility = 'hidden';    
     }
 
-    return {
-        playRound: playRound,
-        resetGame: resetGame,
-        turnCount: turnCount.getTurnCount,
-        roundCount: roundCount.getRoundCount,
-        gameBoard: gameBoard
-    }
-
 })();
 
 /* 
 TO DO:
 MANDATORY
-- Game can be continued while already a winner is declared 
+- Clicking a already chosen field does increase round count!!
 - Build ingame display to show winner
 - Style game
 OPTIONAL
