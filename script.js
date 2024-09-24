@@ -13,6 +13,14 @@ const Game = (function() {
     const gameReset = document.querySelector('.gameReset');
 
     // Event Listener
+    gameStart.addEventListener('click', () => {
+        Game.playGame();
+    })
+  
+    gameReset.addEventListener('click', () => {
+        Game.resetGame();
+    })
+
     for (const field of fieldClick) {
         field.addEventListener('click', function(clicked_id) {
             if(clicked_id.target.id === 'one') {
@@ -44,7 +52,7 @@ const Game = (function() {
             }
         })
     }
-    
+
     // Factory Function to create player and to keep track on gameScore
     function Player(name, marker) {
         let GameScore = 0;
