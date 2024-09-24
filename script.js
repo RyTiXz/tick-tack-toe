@@ -22,141 +22,63 @@ const Game = (function() {
     })
 
     for (const field of fieldClick) {
+        function checkTurnAndSetChoice() {
+            do {
+                if (!(gameBoard.includes(input))) {
+                    alert('already chosen, please choose again')
+                    turnCount.decreaseTurnCount();
+                    break
+                }
+            } while (!(gameBoard.includes(input)))
+            const index = gameBoard.indexOf(input)
+            if (turnCount.getTurnCount() % 2 !== 0) {
+                if (gameBoard.includes(input)) {
+                    gameBoard[index] = 'X';
+                    field.textContent = 'X'
+                }
+            } else if (turnCount.getTurnCount() % 2 === 0) {
+                if (gameBoard.includes(input)) {
+                    gameBoard[index] = 'O';
+                    field.textContent = 'O';
+                }
+            }
+        }
         field.addEventListener('click', (clicked_id) => {
             if(clicked_id.target.id === 'one') {
                 input = 1;
-                const index = gameBoard.indexOf(input)
-                if (turnCount.getTurnCount() % 2 !== 0) {
-                    if (gameBoard.includes(input)) {
-                        gameBoard[index] = 'X';
-                        field.textContent = 'X'
-                    }
-                } else if (turnCount.getTurnCount() % 2 === 0) {
-                    if (gameBoard.includes(input)) {
-                        gameBoard[index] = 'O';
-                        field.textContent = 'O';
-                    }
-                }
+                checkTurnAndSetChoice();
             }
             if(clicked_id.target.id === 'two') {
                 input = 2;
-                const index = gameBoard.indexOf(input)
-                if (turnCount.getTurnCount() % 2 !== 0) {
-                    if (gameBoard.includes(input)) {
-                        gameBoard[index] = 'X';
-                        field.textContent = 'X'
-                    }
-                } else if (turnCount.getTurnCount() % 2 === 0) {
-                    if (gameBoard.includes(input)) {
-                        gameBoard[index] = 'O';
-                        field.textContent = 'O';
-                    }
-                }
+                checkTurnAndSetChoice();
             }
             if(clicked_id.target.id === 'three') {
                 input = 3;
-                const index = gameBoard.indexOf(input)
-                if (turnCount.getTurnCount() % 2 !== 0) {
-                    if (gameBoard.includes(input)) {
-                        gameBoard[index] = 'X';
-                        field.textContent = 'X'
-                    }
-                } else if (turnCount.getTurnCount() % 2 === 0) {
-                    if (gameBoard.includes(input)) {
-                        gameBoard[index] = 'O';
-                        field.textContent = 'O';
-                    }
-                }
+                checkTurnAndSetChoice();
             }
             if(clicked_id.target.id === 'four') {
                 input = 4;
-                const index = gameBoard.indexOf(input)
-                if (turnCount.getTurnCount() % 2 !== 0) {
-                    if (gameBoard.includes(input)) {
-                        gameBoard[index] = 'X';
-                        field.textContent = 'X'
-                    }
-                } else if (turnCount.getTurnCount() % 2 === 0) {
-                    if (gameBoard.includes(input)) {
-                        gameBoard[index] = 'O';
-                        field.textContent = 'O';
-                    }
-                }
+                checkTurnAndSetChoice();
             }
             if(clicked_id.target.id === 'five') {
                 input = 5;
-                const index = gameBoard.indexOf(input)
-                if (turnCount.getTurnCount() % 2 !== 0) {
-                    if (gameBoard.includes(input)) {
-                        gameBoard[index] = 'X';
-                        field.textContent = 'X'
-                    }
-                } else if (turnCount.getTurnCount() % 2 === 0) {
-                    if (gameBoard.includes(input)) {
-                        gameBoard[index] = 'O';
-                        field.textContent = 'O';
-                    }
-                }
+                checkTurnAndSetChoice();
             }
             if(clicked_id.target.id === 'six') {
                 input = 6;
-                const index = gameBoard.indexOf(input)
-                if (turnCount.getTurnCount() % 2 !== 0) {
-                    if (gameBoard.includes(input)) {
-                        gameBoard[index] = 'X';
-                        field.textContent = 'X'
-                    }
-                } else if (turnCount.getTurnCount() % 2 === 0) {
-                    if (gameBoard.includes(input)) {
-                        gameBoard[index] = 'O';
-                        field.textContent = 'O';
-                    }
-                }
+                checkTurnAndSetChoice();
             }
             if(clicked_id.target.id === 'seven') {
                 input = 7;
-                const index = gameBoard.indexOf(input)
-                if (turnCount.getTurnCount() % 2 !== 0) {
-                    if (gameBoard.includes(input)) {
-                        gameBoard[index] = 'X';
-                        field.textContent = 'X'
-                    }
-                } else if (turnCount.getTurnCount() % 2 === 0) {
-                    if (gameBoard.includes(input)) {
-                        gameBoard[index] = 'O';
-                        field.textContent = 'O';
-                    }
-                }
+                checkTurnAndSetChoice();
             }
             if(clicked_id.target.id === 'eight') {
                 input = 8;
-                const index = gameBoard.indexOf(input)
-                if (turnCount.getTurnCount() % 2 !== 0) {
-                    if (gameBoard.includes(input)) {
-                        gameBoard[index] = 'X';
-                        field.textContent = 'X'
-                    }
-                } else if (turnCount.getTurnCount() % 2 === 0) {
-                    if (gameBoard.includes(input)) {
-                        gameBoard[index] = 'O';
-                        field.textContent = 'O';
-                    }
-                }
+                checkTurnAndSetChoice();
             }
             if(clicked_id.target.id === 'nine') {
                 input = 9;
-                const index = gameBoard.indexOf(input)
-                if (turnCount.getTurnCount() % 2 !== 0) {
-                    if (gameBoard.includes(input)) {
-                        gameBoard[index] = 'X';
-                        field.textContent = 'X'
-                    }
-                } else if (turnCount.getTurnCount() % 2 === 0) {
-                    if (gameBoard.includes(input)) {
-                        gameBoard[index] = 'O';
-                        field.textContent = 'O';
-                    }
-                }
+                checkTurnAndSetChoice();
             }
             turnCount.increaseTurnCount();
             checkForWin();
@@ -207,26 +129,28 @@ const Game = (function() {
         let turnCount = 1;
         const getTurnCount = () => turnCount;
         const increaseTurnCount = () => turnCount++;
+        const decreaseTurnCount = () => turnCount--;
         const resetTurnCount = () => turnCount = 1;
 
         return {
             getTurnCount,
             increaseTurnCount,
-            resetTurnCount
+            resetTurnCount,
+            decreaseTurnCount
         }
     }
 
     const turnCount = newTurn();
 
-    // Function to set back Gameboard and RoundCount to initial vlaues
-    function initGame() {
-        gameBoard = [
-            1, 2, 3,
-            4, 5, 6,
-            7, 8, 9
-        ];
-        turnCount.resetTurnCount();
-    }
+    // Function to set back Gameboard and RoundCount to initial vlaues (obsolet)
+    // function initGame() {
+    //     gameBoard = [
+    //         1, 2, 3,
+    //         4, 5, 6,
+    //         7, 8, 9
+    //     ];
+    //     turnCount.resetTurnCount();
+    // }
 
     // Function to reset complete game
     function resetGame() {
@@ -239,33 +163,36 @@ const Game = (function() {
         turnCount.resetTurnCount();
         player1.resetGameScore();
         player2.resetGameScore();
-    }
-
-    // Function to play one turn
-    function playTurn() {
-        // Get user input
-        // let input;
-        // do {
-        //     input = Number(prompt('choose 1-9'))
-        //     if (isNaN(input) || isNaN('') || input > 9 || input < 1) {
-        //         alert('Wrong input. Please choose a number between 1-9')
-        //     } else if (!(gameBoard.includes(input))) {
-        //         alert('already chosen, please choose again')
-        //     }
-        // } while (!(gameBoard.includes(input)))
-
-        // Replace user choice in game array
-        const index = gameBoard.indexOf(input)
-        if (turnCount.getTurnCount() % 2 !== 0) {
-            if (gameBoard.includes(input)) {
-                gameBoard[index] = 'X';
-            }
-        } else if (turnCount.getTurnCount() % 2 === 0) {
-            if (gameBoard.includes(input)) {
-                gameBoard[index] = 'O';
-            }
+        for (const field of fieldClick) {
+            field.textContent = '';
         }
     }
+
+    // Function to play one turn (obsolet)
+    // function playTurn() {
+    //     // Get user input
+    //     // let input;
+    //     do {
+    //         input = Number(prompt('choose 1-9'))
+    //         if (isNaN(input) || isNaN('') || input > 9 || input < 1) {
+    //             alert('Wrong input. Please choose a number between 1-9')
+    //         } else if (!(gameBoard.includes(input))) {
+    //             alert('already chosen, please choose again')
+    //         }
+    //     } while (!(gameBoard.includes(input)))
+
+    //     // Replace user choice in game array
+    //     const index = gameBoard.indexOf(input)
+    //     if (turnCount.getTurnCount() % 2 !== 0) {
+    //         if (gameBoard.includes(input)) {
+    //             gameBoard[index] = 'X';
+    //         }
+    //     } else if (turnCount.getTurnCount() % 2 === 0) {
+    //         if (gameBoard.includes(input)) {
+    //             gameBoard[index] = 'O';
+    //         }
+    //     }
+    // }
 
     // Function to check for win
     function checkForWin() {
@@ -285,15 +212,13 @@ const Game = (function() {
                 gameBoard[combination[1]] === 'X' &&
                 gameBoard[combination[2]] === 'X') {
                 player1.increaseGameScore();
-                console.log(gameBoard);
-                console.log(player1.name + ' wins round ' + roundCount.getRoundCount() + '!')
+                alert(player1.name + ' wins round ' + roundCount.getRoundCount() + '! He has now a gamescore of: ' + player1.getGameScore());
                 return true;
             } else if (gameBoard[combination[0]] === 'O' &&
                 gameBoard[combination[1]] === 'O' &&
                 gameBoard[combination[2]] === 'O') {
                 player2.increaseGameScore();
-                console.log(gameBoard);
-                console.log(player2.name + ' wins round ' + roundCount.getRoundCount() + '!')
+                alert(player2.name + ' wins round ' + roundCount.getRoundCount() + '! He has now a gamescore of: ' + player2.getGameScore());
                 return true;
             }
         }
@@ -313,51 +238,50 @@ const Game = (function() {
 
     // Function to play three rounds
     function playGame() {
-        if (roundCount.getRoundCount() <= 3) {
-            console.log({
-                Round: roundCount.getRoundCount(),
-            });
-            playAllTurns()
-            roundCount.increaseRoundCount();
-        } else {
-            resetGame();
+        gameBoard = [
+            1, 2, 3,
+            4, 5, 6,
+            7, 8, 9
+        ];
+        turnCount.resetTurnCount();
+        for (const field of fieldClick) {
+            field.textContent = '';
         }
     }
 
-    // Function to play max. all nine turns or till one wins
-    function playAllTurns() {
-        while (turnCount.getTurnCount() <= 9) {
-            console.log({
-                Turn: turnCount.getTurnCount()
-            });
-            playTurn()
-            if (checkForWin() === true) {
-                break
-            }
-            if (turnCount.getTurnCount() === 9) {
-                alert('Tie!')
-            }
-            console.log(gameBoard);
-            turnCount.increaseTurnCount();
-        }
-        console.log({
-            Player: player1.name,
-            GameScore: player1.getGameScore()
-        })
-        console.log({
-            Player: player2.name,
-            GameScore: player2.getGameScore()
-        })
-        if (roundCount.getRoundCount() == 3) {
-            checkForGameWinner();
-        } 
-        initGame();
+    // Function to play max. all nine turns or till one wins (obsolet)
+    // function playAllTurns() {
+    //     while (turnCount.getTurnCount() <= 9) {
+    //         console.log({
+    //             Turn: turnCount.getTurnCount()
+    //         });
+    //         playTurn()
+    //         if (checkForWin() === true) {
+    //             break
+    //         }
+    //         if (turnCount.getTurnCount() === 9) {
+    //             alert('Tie!')
+    //         }
+    //         console.log(gameBoard);
+    //         turnCount.increaseTurnCount();
+    //     }
+    //     console.log({
+    //         Player: player1.name,
+    //         GameScore: player1.getGameScore()
+    //     })
+    //     console.log({
+    //         Player: player2.name,
+    //         GameScore: player2.getGameScore()
+    //     })
+    //     if (roundCount.getRoundCount() == 3) {
+    //         checkForGameWinner();
+    //     } 
+    //     initGame();
 
-    }
+    // }
 
     return {
         playGame: playGame,
-        initGame: initGame,
         resetGame: resetGame,
         turnCount: turnCount.getTurnCount,
         roundCount: roundCount.getRoundCount,
@@ -373,6 +297,7 @@ TO DO
 - Roundcount not counting
 - Score count not counting
 - refractor click eventListener Code
+- Build ingame display to show winner
 
 
 DONE
