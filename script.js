@@ -1,9 +1,40 @@
-/* Tick tack toe game has: 
-- Player
-- Gamesscore
-- Gamelogic
-- Userinput
-*/
+  // Querry selector
+  const fieldClick = document.querySelectorAll('.field');
+  const gameStart = document.querySelector('.gameStart');
+  const gameReset = document.querySelector('.gameReset');
+
+// Event Listener
+  for (const field of fieldClick) {
+      field.addEventListener('click', function(clicked_id) {
+          if(clicked_id.target.id === 'one') {
+              input = 1;
+          }
+          if(clicked_id.target.id === 'two') {
+              input = 2;
+          }
+          if(clicked_id.target.id === 'three') {
+              input = 3;
+          }
+          if(clicked_id.target.id === 'four') {
+              input = 4;
+          }
+          if(clicked_id.target.id === 'five') {
+              input = 5;
+          }
+          if(clicked_id.target.id === 'six') {
+              input = 6;
+          }
+          if(clicked_id.target.id === 'seven') {
+              input = 7;
+          }
+          if(clicked_id.target.id === 'eight') {
+              input = 8;
+          }
+          if(clicked_id.target.id === 'nine') {
+              input = 9;
+          }
+      })
+    }
 
 const Game = (function() {
     let gameBoard = [
