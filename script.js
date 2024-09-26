@@ -235,13 +235,6 @@ const Game = (function() {
         for (const field of divFieldClick) {
             field.textContent = '';
         }
-        // This if statement does not work correctly!!
-        // if (roundCount.getRoundCount() === 1 
-        //     && player1.getGameScore() > 0 
-        //     || player2.getGameScore > 0) {
-        //     roundCount.increaseRoundCount();
-        //     updateGameScore();
-        // }
     }
 
     // Function to only show 'start round' button after round 1
