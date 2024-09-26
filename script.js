@@ -156,13 +156,14 @@
             4, 5, 6,
             7, 8, 9
         ];
+        for (const field of divFieldClick) {
+            field.textContent = '';
+        }
         roundCount.increaseRoundCount();
         turnCount.resetTurnCount();
         updateGameScore();
         enableGameField();
-        for (const field of divFieldClick) {
-            field.textContent = '';
-        }
+        makeStartButtonHide();
     }
 
     // Function to check for win
@@ -177,29 +178,35 @@
             [0, 4, 8],
             [2, 4, 6]
         ];
-        
-        for (const combination of winningCombinations) {
-            if (gameBoard[combination[0]] === 'X' &&
-                gameBoard[combination[1]] === 'X' &&
-                gameBoard[combination[2]] === 'X') {
-                    player1.increaseGameScore();
+        if (turnCount.getTurnCount() < 9) {
+            for (const combination of winningCombinations) {
+                if (gameBoard[combination[0]] === 'X' &&
+                    gameBoard[combination[1]] === 'X' &&
+                    gameBoard[combination[2]] === 'X') {
+                        player1.increaseGameScore();
+                        updateGameScore();
+                        makeStartButtonVisible();
+                        disableGameField()
+                        checkForGameWinner();
+                        console.log(player1.name + ' wins round ' + roundCount.getRoundCount()
+                         + '! He has now a gamescore of: ' + player1.getGameScore());
+                } else if (gameBoard[combination[0]] === 'O' &&
+                    gameBoard[combination[1]] === 'O' &&
+                    gameBoard[combination[2]] === 'O') {
+                    player2.increaseGameScore();
                     updateGameScore();
-                    makeButtonVisible();
-                    console.log(player1.name + ' wins round ' + roundCount.getRoundCount() + '! He has now a gamescore of: ' + player1.getGameScore());
-                    disableGameField()
+                    makeStartButtonVisible();
+                    disableGameField();
                     checkForGameWinner();
-                    return true;
-            } else if (gameBoard[combination[0]] === 'O' &&
-                gameBoard[combination[1]] === 'O' &&
-                gameBoard[combination[2]] === 'O') {
-                player2.increaseGameScore();
-                updateGameScore();
-                makeButtonVisible();
-                console.log(player2.name + ' wins round ' + roundCount.getRoundCount() + '! He has now a gamescore of: ' + player2.getGameScore());
-                disableGameField();
-                checkForGameWinner();
-                return true;
+                    console.log(player2.name + ' wins round ' + roundCount.getRoundCount()
+                     + '! He has now a gamescore of: ' + player2.getGameScore());
+                }
             }
+        } else if (turnCount.getTurnCount() === 9) {
+            console.log('Tie!');
+            makeStartButtonVisible();
+            disableGameField()
+            checkForGameWinner();
         }
     }
 
@@ -211,9 +218,11 @@
             player2.getGameScore() >= 2 ) 
         ) {
             if (player1.getGameScore() > player2.getGameScore()) {
-                console.log('Game Winner: ' + player1.name);
+                console.log('Game Winner: ' + player1.name + ' with a result of '
+                     + player1.getGameScore() + ':' + player2.getGameScore());
             } else if (player1.getGameScore() < player2.getGameScore()) {
-                console.log('Game Winner: ' + player2.name);
+                console.log('Game Winner: ' + player2.name + ' with a result of '
+                     + player1.getGameScore() + ':' + player2.getGameScore());
             } else {
                 console.log('Game ended in a tie!')
             }
@@ -242,17 +251,17 @@
     }
 
     // Function to only show 'start round' button after round 1
-    function makeButtonVisible() {
+    function makeStartButtonVisible() {
         divGameStart.style.pointerEvents = 'all';
         divGameStart.style.opacity = '1';
     }
 
     // Function to hide button when game gets resettet
-    function makeButtonHide() {
+    function makeStartButtonHide() {
         divGameStart.style.pointerEvents = 'none';
         divGameStart.style.opacity = '0.5';  
     }
-    
+
     // Event listener to reset game
     divGameReset.addEventListener('click', () => {
         if (roundCount.getRoundCount() < 3) {
@@ -277,7 +286,7 @@
         player1.resetGameScore();
         player2.resetGameScore();
         updateGameScore();
-        makeButtonHide();
+        makeStartButtonHide();
         enableGameField();
         for (const field of divFieldClick) {
             field.textContent = '';
@@ -296,6 +305,7 @@ TO DO:
 - Style game
 
 DONE
+- 'Start new round' also works when there is no winner but counts round number up
 - build better function for check win function (don't repeat!)
 - restart playTurn() not working correctly for now
 - startNewRound() giving two winner alerts, but Tie working correctly
