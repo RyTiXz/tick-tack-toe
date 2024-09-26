@@ -33,6 +33,10 @@ const Game = (function() {
                     break
                 }
             } while (!(gameBoard.includes(input)))
+                setChoice();
+        }
+
+        function setChoice() {
             const index = gameBoard.indexOf(input)
             if (turnCount.getTurnCount() % 2 !== 0) {
                 if (gameBoard.includes(input)) {
@@ -46,6 +50,7 @@ const Game = (function() {
                 }
             }
         }
+
         field.addEventListener('click', (clicked_id) => {
             if (roundCount.getRoundCount() <= 3) {
                 if(clicked_id.target.id === 'one') {
@@ -111,9 +116,6 @@ const Game = (function() {
 
     const player1 = Player('Player 1', 'X');
     const player2 = Player('Player 2', 'O');
-
-    // const player1 = Player(prompt('Insert player 1 name'), 'X');
-    // const player2 = Player(prompt('Insert player 2 name'), 'O');
 
     // Factory Function to create number of played rounds
     function newRound() {
@@ -194,7 +196,6 @@ const Game = (function() {
                 player1.increaseGameScore();
                 updateGameScore();
                 makeButtonVisible();
-                roundCount.increaseRoundCount();
                 console.log(player1.name + ' wins round ' + roundCount.getRoundCount() + '! He has now a gamescore of: ' + player1.getGameScore());
                 return true;
             } else if (gameBoard[combination[0]] === 'O' &&
@@ -203,12 +204,10 @@ const Game = (function() {
                 player2.increaseGameScore();
                 updateGameScore();
                 makeButtonVisible();
-                roundCount.increaseRoundCount();
                 console.log(player2.name + ' wins round ' + roundCount.getRoundCount() + '! He has now a gamescore of: ' + player2.getGameScore());
                 return true;
             }
         }
-        
     }
 
     // Function to check for Game winner after 3 Rounds
@@ -231,6 +230,7 @@ const Game = (function() {
             4, 5, 6,
             7, 8, 9
         ];
+        roundCount.increaseRoundCount();
         turnCount.resetTurnCount();
         updateGameScore();
         for (const field of divFieldClick) {
@@ -260,7 +260,9 @@ const Game = (function() {
 /* 
 TO DO:
 MANDATORY
-- Clicking a already chosen field does increase round count!!
+- Clicking a already chosen field does increase playerScore count!!
+- Add 'are you sure?' question when clicking reset button while roundCount() is < 3
+- Round 4 is shown after 3 rounds played
 - Build ingame display to show winner
 - Style game
 OPTIONAL
@@ -271,5 +273,6 @@ DONE
 - restart playTurn() not working correctly for now
 - playRound() giving two winner alerts, but Tie working correctly
 - update of roundCound on website not working correct
+- Clicking a already chosen field does increase round count!!
 
 */
