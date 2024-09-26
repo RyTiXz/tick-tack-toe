@@ -33,23 +33,22 @@ const Game = (function() {
                     break
                 }
             } while (!(gameBoard.includes(input)))
-                setChoice();
-        }
-
-        function setChoice() {
             const index = gameBoard.indexOf(input)
             if (turnCount.getTurnCount() % 2 !== 0) {
                 if (gameBoard.includes(input)) {
                     gameBoard[index] = 'X';
-                    field.textContent = 'X'
+                    field.textContent = 'X';
+                    checkForWin();
                 }
             } else if (turnCount.getTurnCount() % 2 === 0) {
                 if (gameBoard.includes(input)) {
                     gameBoard[index] = 'O';
                     field.textContent = 'O';
+                    checkForWin();
                 }
             }
         }
+
 
         field.addEventListener('click', (clicked_id) => {
             if (roundCount.getRoundCount() <= 3) {
@@ -90,7 +89,7 @@ const Game = (function() {
                     checkTurnAndSetChoice();
                 }
                 turnCount.increaseTurnCount();
-                checkForWin();
+                // checkForWin();
                 checkForGameWinner();
             } else {
                 alert('Please reset game via button')
@@ -260,7 +259,7 @@ const Game = (function() {
 /* 
 TO DO:
 MANDATORY
-- Clicking a already chosen field does increase playerScore count!!
+- Clicking an empty field does increase playerScore count after game is finished!!
 - Add 'are you sure?' question when clicking reset button while roundCount() is < 3
 - Round 4 is shown after 3 rounds played
 - Build ingame display to show winner
@@ -274,5 +273,6 @@ DONE
 - playRound() giving two winner alerts, but Tie working correctly
 - update of roundCound on website not working correct
 - Clicking a already chosen field does increase round count!!
+- Clicking a already chosen field does increase playerScore count after game is finished!!
 
 */
