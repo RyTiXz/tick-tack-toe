@@ -16,11 +16,23 @@ const Game = (function() {
 
     // Event Listener
     divGameStart.addEventListener('click', () => {
-        playRound();
+        if (roundCount.getRoundCount() < 3) {
+            playRound();
+        } else {
+            console.log('Please start a new game!');
+            
+        }
     })
   
     divGameReset.addEventListener('click', () => {
-        checkforResetGame();
+        if (roundCount.getRoundCount() < 3) {
+            let confirmation = confirm('Are you sure you want to reset the game?')
+            if (confirmation === true) {
+                resetGame();
+            }
+        } else {
+            resetGame();
+        }
     })
 
     // Function to build game field and check for win condition
@@ -167,18 +179,6 @@ const Game = (function() {
         enableGameField();
         for (const field of divFieldClick) {
             field.textContent = '';
-        }
-    }
-
-    // Function to  check for reset complete game
-    function checkforResetGame() {
-        if (roundCount.getRoundCount() < 3) {
-            let confirmation = confirm('Are you sure you want to reset the game?')
-            if (confirmation === true) {
-                resetGame();
-            }
-        } else {
-            resetGame();
         }
     }
 
