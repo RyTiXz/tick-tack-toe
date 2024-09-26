@@ -273,12 +273,14 @@ const Game = (function() {
 
     // Function to only show 'start round' button after round 1
     function makeButtonVisible() {
-        divGameStart.style.visibility = 'visible';
+        divGameStart.style.pointerEvents = 'all';
+        divGameStart.style.opacity = '1';
     }
 
     // Function to hide button when game gets resettet
     function makeButtonHide() {
-        divGameStart.style.visibility = 'hidden';    
+        divGameStart.style.pointerEvents = 'none';
+        divGameStart.style.opacity = '0.5';  
     }
 
 })();
@@ -289,7 +291,7 @@ MANDATORY
 - Build ingame display to show winner
 - Style game
 OPTIONAL
-- refractor click eventListener Code
+- refractor click Code
 
 DONE
 - build better function for check win function (don't repeat!)
