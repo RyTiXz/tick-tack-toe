@@ -51,7 +51,6 @@ const Game = (function() {
                     field.textContent = 'X';
                     checkForWin();
                     turnCount.increaseTurnCount();
-                    checkForGameWinner();
                 }
             } else if (turnCount.getTurnCount() % 2 === 0) {
                 if (gameBoard.includes(input)) {
@@ -59,7 +58,6 @@ const Game = (function() {
                     field.textContent = 'O';
                     checkForWin();
                     turnCount.increaseTurnCount();
-                    checkForGameWinner();
                 }
             }
         }
@@ -210,6 +208,7 @@ const Game = (function() {
                 makeButtonVisible();
                 console.log(player1.name + ' wins round ' + roundCount.getRoundCount() + '! He has now a gamescore of: ' + player1.getGameScore());
                 disableGameField()
+                checkForGameWinner();
                 return true;
             } else if (gameBoard[combination[0]] === 'O' &&
                 gameBoard[combination[1]] === 'O' &&
@@ -218,7 +217,8 @@ const Game = (function() {
                 updateGameScore();
                 makeButtonVisible();
                 console.log(player2.name + ' wins round ' + roundCount.getRoundCount() + '! He has now a gamescore of: ' + player2.getGameScore());
-                disableGameField()
+                disableGameField();
+                checkForGameWinner();
                 return true;
             }
         }
@@ -226,7 +226,11 @@ const Game = (function() {
 
     // Function to check for Game winner after 3 Rounds
     function checkForGameWinner() {
-        if (roundCount.getRoundCount() === 4) {
+        if (
+            roundCount.getRoundCount() === 3 && (
+            player1.getGameScore() >= 2 || 
+            player2.getGameScore() >= 2 ) 
+        ) {
             if (player1.getGameScore() > player2.getGameScore()) {
                 console.log('Game Winner: ' + player1.name);
             } else if (player1.getGameScore() < player2.getGameScore()) {
@@ -299,4 +303,3 @@ DONE
 - Round 4 is shown after 3 rounds played
 
 */
-
