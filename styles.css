@@ -48,6 +48,11 @@ body {
     pointer-events: none;
 }
 
+.Instruction {
+    grid-area: 2 / 3 / 3 / 4;
+    margin: 5px;
+}
+
 .gameReset {
     grid-area: 2 / 4 / 3 / 5;
     margin: 5px;

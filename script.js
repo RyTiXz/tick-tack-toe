@@ -289,6 +289,7 @@ const Game = (function() {
 TO DO:
 MANDATORY
 - Build ingame display to show winner
+- Build instructions button
 - Style game
 OPTIONAL
 - refractor click Code
