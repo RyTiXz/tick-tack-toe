@@ -20,7 +20,7 @@ const Game = (function() {
     })
   
     divGameReset.addEventListener('click', () => {
-        resetGame();
+        checkforResetGame();
     })
 
     // Function to build game field and check for win condition
@@ -170,6 +170,18 @@ const Game = (function() {
         }
     }
 
+    // Function to  check for reset complete game
+    function checkforResetGame() {
+        if (roundCount.getRoundCount() < 3) {
+            let confirmation = confirm('Are you sure you want to reset the game?')
+            if (confirmation === true) {
+                resetGame();
+            }
+        } else {
+            resetGame();
+        }
+    }
+
     // Function to update Game Scores
     function updateGameScore() {
         divRoundCount.textContent = roundCount.getRoundCount();
@@ -271,7 +283,6 @@ const Game = (function() {
 /* 
 TO DO:
 MANDATORY
-- Add 'are you sure?' question when clicking reset button while roundCount() is < 3
 - Round 4 is shown after 3 rounds played
 - Build ingame display to show winner
 - Style game
@@ -286,6 +297,7 @@ DONE
 - Clicking a already chosen field does increase round count!!
 - Clicking a already chosen field does increase playerScore count after game is finished!!
 - Clicking an empty field does increase playerScore count after game is finished!!
+- Add 'are you sure?' question when clicking reset button while roundCount() is < 3
 
 */
 
