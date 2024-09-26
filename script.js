@@ -28,7 +28,7 @@ const Game = (function() {
         function checkTurnAndSetChoice() {
             do {
                 if (!(gameBoard.includes(input))) {
-                    alert('already chosen, please choose again')
+                    alert('already chosen, please choose again or start new round')
                     turnCount.decreaseTurnCount();
                     break
                 }
@@ -39,12 +39,16 @@ const Game = (function() {
                     gameBoard[index] = 'X';
                     field.textContent = 'X';
                     checkForWin();
+                    turnCount.increaseTurnCount();
+                    checkForGameWinner();
                 }
             } else if (turnCount.getTurnCount() % 2 === 0) {
                 if (gameBoard.includes(input)) {
                     gameBoard[index] = 'O';
                     field.textContent = 'O';
                     checkForWin();
+                    turnCount.increaseTurnCount();
+                    checkForGameWinner();
                 }
             }
         }
@@ -88,9 +92,6 @@ const Game = (function() {
                     input = 9;
                     checkTurnAndSetChoice();
                 }
-                turnCount.increaseTurnCount();
-                // checkForWin();
-                checkForGameWinner();
             } else {
                 alert('Please reset game via button')
             }
@@ -163,6 +164,7 @@ const Game = (function() {
         player2.resetGameScore();
         updateGameScore();
         makeButtonHide();
+        enableGameField();
         for (const field of divFieldClick) {
             field.textContent = '';
         }
@@ -196,6 +198,7 @@ const Game = (function() {
                 updateGameScore();
                 makeButtonVisible();
                 console.log(player1.name + ' wins round ' + roundCount.getRoundCount() + '! He has now a gamescore of: ' + player1.getGameScore());
+                disableGameField()
                 return true;
             } else if (gameBoard[combination[0]] === 'O' &&
                 gameBoard[combination[1]] === 'O' &&
@@ -204,6 +207,7 @@ const Game = (function() {
                 updateGameScore();
                 makeButtonVisible();
                 console.log(player2.name + ' wins round ' + roundCount.getRoundCount() + '! He has now a gamescore of: ' + player2.getGameScore());
+                disableGameField()
                 return true;
             }
         }
@@ -232,9 +236,24 @@ const Game = (function() {
         roundCount.increaseRoundCount();
         turnCount.resetTurnCount();
         updateGameScore();
+        enableGameField();
         for (const field of divFieldClick) {
             field.textContent = '';
         }
+    }
+
+    // Function to disable gameFiel after round is over
+    function disableGameField() {
+        divFieldClick.forEach(divFieldClick => {
+            divFieldClick.classList.add('disabled');
+        })
+    }
+
+    // Function to enable gameField after new round is started
+    function enableGameField() {
+        divFieldClick.forEach(divFieldClick => {
+            divFieldClick.classList.remove('disabled');
+        })
     }
 
     // Function to only show 'start round' button after round 1
@@ -252,7 +271,6 @@ const Game = (function() {
 /* 
 TO DO:
 MANDATORY
-- Clicking an empty field does increase playerScore count after game is finished!!
 - Add 'are you sure?' question when clicking reset button while roundCount() is < 3
 - Round 4 is shown after 3 rounds played
 - Build ingame display to show winner
@@ -267,5 +285,7 @@ DONE
 - update of roundCound on website not working correct
 - Clicking a already chosen field does increase round count!!
 - Clicking a already chosen field does increase playerScore count after game is finished!!
+- Clicking an empty field does increase playerScore count after game is finished!!
 
 */
+
