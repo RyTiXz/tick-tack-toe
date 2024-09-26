@@ -41,7 +41,6 @@ const Game = (function() {
             do {
                 if (!(gameBoard.includes(input))) {
                     alert('already chosen, please choose again or start new round')
-                    turnCount.decreaseTurnCount();
                     break
                 }
             } while (!(gameBoard.includes(input)))
