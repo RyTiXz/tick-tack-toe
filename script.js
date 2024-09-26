@@ -1,5 +1,5 @@
 
-const Game = (function() {
+(function() {
     let gameBoard = [
         1, 2, 3,
         4, 5, 6,
@@ -13,27 +13,6 @@ const Game = (function() {
     const divRoundCount = document.querySelector('#roundCounter')
     const divScoreCountP1 = document.querySelector('#scorePlayer1')
     const divScoreCountP2 = document.querySelector('#scorePlayer2')
-
-    // Event Listener
-    divGameStart.addEventListener('click', () => {
-        if (roundCount.getRoundCount() < 3) {
-            playRound();
-        } else {
-            console.log('Please start a new game!');
-            
-        }
-    })
-  
-    divGameReset.addEventListener('click', () => {
-        if (roundCount.getRoundCount() < 3) {
-            let confirmation = confirm('Are you sure you want to reset the game?')
-            if (confirmation === true) {
-                resetGame();
-            }
-        } else {
-            resetGame();
-        }
-    })
 
     // Function to build game field and check for win condition
     for (const field of divFieldClick) {
@@ -160,30 +139,30 @@ const Game = (function() {
 
     const turnCount = newTurn();
 
-    // Function to reset complete game
-    function resetGame() {
+    // Event listener for new Round
+    divGameStart.addEventListener('click', () => {
+        if (roundCount.getRoundCount() < 3) {
+            startNewRound();
+        } else {
+            console.log('Please start a new game!');
+            
+        }
+    })
+
+    // Function to start new round
+    function startNewRound() {
         gameBoard = [
             1, 2, 3,
             4, 5, 6,
             7, 8, 9
         ];
-        roundCount.resetRoundCount();
+        roundCount.increaseRoundCount();
         turnCount.resetTurnCount();
-        player1.resetGameScore();
-        player2.resetGameScore();
         updateGameScore();
-        makeButtonHide();
         enableGameField();
         for (const field of divFieldClick) {
             field.textContent = '';
         }
-    }
-
-    // Function to update Game Scores
-    function updateGameScore() {
-        divRoundCount.textContent = roundCount.getRoundCount();
-        divScoreCountP1.textContent = player1.getGameScore();
-        divScoreCountP2.textContent = player2.getGameScore();
     }
 
     // Function to check for win
@@ -198,18 +177,18 @@ const Game = (function() {
             [0, 4, 8],
             [2, 4, 6]
         ];
-
+        
         for (const combination of winningCombinations) {
             if (gameBoard[combination[0]] === 'X' &&
                 gameBoard[combination[1]] === 'X' &&
                 gameBoard[combination[2]] === 'X') {
-                player1.increaseGameScore();
-                updateGameScore();
-                makeButtonVisible();
-                console.log(player1.name + ' wins round ' + roundCount.getRoundCount() + '! He has now a gamescore of: ' + player1.getGameScore());
-                disableGameField()
-                checkForGameWinner();
-                return true;
+                    player1.increaseGameScore();
+                    updateGameScore();
+                    makeButtonVisible();
+                    console.log(player1.name + ' wins round ' + roundCount.getRoundCount() + '! He has now a gamescore of: ' + player1.getGameScore());
+                    disableGameField()
+                    checkForGameWinner();
+                    return true;
             } else if (gameBoard[combination[0]] === 'O' &&
                 gameBoard[combination[1]] === 'O' &&
                 gameBoard[combination[2]] === 'O') {
@@ -241,22 +220,13 @@ const Game = (function() {
         }
     }
 
-    // Function to start new round
-    function playRound() {
-        gameBoard = [
-            1, 2, 3,
-            4, 5, 6,
-            7, 8, 9
-        ];
-        roundCount.increaseRoundCount();
-        turnCount.resetTurnCount();
-        updateGameScore();
-        enableGameField();
-        for (const field of divFieldClick) {
-            field.textContent = '';
-        }
+    // Function to update Game Scores
+    function updateGameScore() {
+        divRoundCount.textContent = roundCount.getRoundCount();
+        divScoreCountP1.textContent = player1.getGameScore();
+        divScoreCountP2.textContent = player2.getGameScore();
     }
-
+    
     // Function to disable gameFiel after round is over
     function disableGameField() {
         divFieldClick.forEach(divFieldClick => {
@@ -282,22 +252,53 @@ const Game = (function() {
         divGameStart.style.pointerEvents = 'none';
         divGameStart.style.opacity = '0.5';  
     }
+    
+    // Event listener to reset game
+    divGameReset.addEventListener('click', () => {
+        if (roundCount.getRoundCount() < 3) {
+            let confirmation = confirm('Are you sure you want to reset the game?')
+            if (confirmation === true) {
+                resetGame();
+            }
+        } else {
+            resetGame();
+        }
+    })
+
+    // Function to reset complete game
+    function resetGame() {
+        gameBoard = [
+            1, 2, 3,
+            4, 5, 6,
+            7, 8, 9
+        ];
+        roundCount.resetRoundCount();
+        turnCount.resetTurnCount();
+        player1.resetGameScore();
+        player2.resetGameScore();
+        updateGameScore();
+        makeButtonHide();
+        enableGameField();
+        for (const field of divFieldClick) {
+            field.textContent = '';
+        }
+    }
+    
 
 })();
 
 /* 
 TO DO:
-MANDATORY
+- Build funtionality if no player wins!
 - Build ingame display to show winner
 - Build instructions button
+- Refractor Code into objects, get rid of huge IIFE
 - Style game
-OPTIONAL
-- refractor click Code
 
 DONE
 - build better function for check win function (don't repeat!)
 - restart playTurn() not working correctly for now
-- playRound() giving two winner alerts, but Tie working correctly
+- startNewRound() giving two winner alerts, but Tie working correctly
 - update of roundCound on website not working correct
 - Clicking a already chosen field does increase round count!!
 - Clicking a already chosen field does increase playerScore count after game is finished!!
