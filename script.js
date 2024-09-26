@@ -283,7 +283,6 @@ const Game = (function() {
 /* 
 TO DO:
 MANDATORY
-- Round 4 is shown after 3 rounds played
 - Build ingame display to show winner
 - Style game
 OPTIONAL
@@ -298,6 +297,7 @@ DONE
 - Clicking a already chosen field does increase playerScore count after game is finished!!
 - Clicking an empty field does increase playerScore count after game is finished!!
 - Add 'are you sure?' question when clicking reset button while roundCount() is < 3
+- Round 4 is shown after 3 rounds played
 
 */
 
