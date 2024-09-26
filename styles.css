@@ -2,7 +2,7 @@
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     padding: 0;
     margin: auto;
-    max-width: 500px;
+    max-width: 350px;
     text-align: center;
 }
 
@@ -15,48 +15,54 @@ body {
 }
 
 .mainContainer {
-    /* border: 1px solid black; */
+    border: 1px solid black;
     margin: 20px;
     height: fit-content;
-    width: 400px;
-    margin: 10px auto;
+    margin: auto;
 }
 
 .gameLeadContainer {
-    margin: 5px;
     display: grid;
-    grid-template-columns: 1fr 100px 100px 100px 1fr;
-    grid-template-rows: 1fr 1fr;
+    justify-content: center;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 50px);
 }
 
-.player1 {
-    grid-area: 1 / 2 / 2 / 3;
+.gameMonitor {
+    background-color: grey;
+    grid-area: 1 / 1 / 2 / 4;
+    height: 50px;
+    width: 300px;
+}
+
+/* .player1 {
+    grid-area: 2 / 2 / 3 / 3;
 }
 
 .roundCounter {
-    grid-area: 1 / 3 / 2 / 4;
+    grid-area: 2 / 3 / 3 / 4;
 }
 
 .player2 {
-    grid-area: 1 / 4 / 2 / 5;
+    grid-area: 2 / 4 / 3 / 5;
 }
 
 .gameStart {
-    grid-area: 2 / 2 / 3 / 3;
+    grid-area: 3 / 2 / 4 / 3;
     margin: 5px;
     opacity: 0.5;
     pointer-events: none;
 }
 
 .Instruction {
-    grid-area: 2 / 3 / 3 / 4;
+    grid-area: 3 / 3 / 4 / 4;
     margin: 5px;
 }
 
 .gameReset {
-    grid-area: 2 / 4 / 3 / 5;
+    grid-area: 3 / 4 / 4 / 5;
     margin: 5px;
-}
+} */
 
 .gameField {
     border: 2px solid black;
@@ -64,6 +70,7 @@ body {
     height: 300px;
     width: 300px;
     display: grid;
+    justify-content: center;
     grid-template-rows: 1fr 1fr 1fr;
     grid-template-columns: 1fr 1fr 1fr;
     overflow: hidden;

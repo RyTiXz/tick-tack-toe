@@ -298,13 +298,13 @@
 
 /* 
 TO DO:
-- Build funtionality if no player wins!
 - Build ingame display to show winner
 - Build instructions button
 - Refractor Code into objects, get rid of huge IIFE
 - Style game
 
 DONE
+- Build funtionality if no player wins!
 - 'Start new round' also works when there is no winner but counts round number up
 - build better function for check win function (don't repeat!)
 - restart playTurn() not working correctly for now
