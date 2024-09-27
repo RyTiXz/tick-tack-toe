@@ -13,6 +13,7 @@
     const divRoundCount = document.querySelector('#roundCounter')
     const divScoreCountP1 = document.querySelector('#scorePlayer1')
     const divScoreCountP2 = document.querySelector('#scorePlayer2')
+    const divInfoMonitor = document.querySelector('.infoMonitor')
 
     // Function to build game field and check for win condition
     for (const field of divFieldClick) {
@@ -29,6 +30,7 @@
                     gameBoard[index] = 'X';
                     field.textContent = 'X';
                     field.classList.add('P1');
+                    removeInfoText();
                     checkForWin();
                     turnCount.increaseTurnCount();
                 }
@@ -37,6 +39,7 @@
                     gameBoard[index] = 'O';
                     field.textContent = 'O';
                     field.classList.add('P2');
+                    removeInfoText();
                     checkForWin();
                     turnCount.increaseTurnCount();
                 }
@@ -83,7 +86,7 @@
                     checkTurnAndSetChoice();
                 }
             } else {
-                alert('Please reset game via button')
+                divInfoMonitor.textContent = 'Please reset game via button';
             }
         })
     }
@@ -146,13 +149,14 @@
         if (roundCount.getRoundCount() < 3) {
             startNewRound();
         } else {
-            console.log('Please start a new game!');
+            divInfoMonitor.textContent = 'Please start a new game!';
             
         }
     })
 
     // Function to start new round
     function startNewRound() {
+        checkForGameWinner();
         gameBoard = [
             1, 2, 3,
             4, 5, 6,
@@ -162,7 +166,7 @@
             field.textContent = '';
         }
         roundCount.increaseRoundCount();
-        turnCount.resetTurnCount();
+        showInfoText();
         updateGameScore();
         enableGameField();
         makeStartButtonHide();
@@ -180,7 +184,7 @@
             [0, 4, 8],
             [2, 4, 6]
         ];
-        if (turnCount.getTurnCount() < 9) {
+        if (gameBoard.some(Number)) {
             for (const combination of winningCombinations) {
                 if (gameBoard[combination[0]] === 'X' &&
                     gameBoard[combination[1]] === 'X' &&
@@ -189,26 +193,24 @@
                         updateGameScore();
                         makeStartButtonVisible();
                         disableGameField()
-                        checkForGameWinner();
-                        console.log(player1.name + ' wins round ' + roundCount.getRoundCount()
-                         + '! He has now a gamescore of: ' + player1.getGameScore());
+                        // checkForGameWinner();
+                        divInfoMonitor.textContent = `${player1.name} wins round ${roundCount.getRoundCount()}!`;
                 } else if (gameBoard[combination[0]] === 'O' &&
                     gameBoard[combination[1]] === 'O' &&
                     gameBoard[combination[2]] === 'O') {
-                    player2.increaseGameScore();
-                    updateGameScore();
-                    makeStartButtonVisible();
-                    disableGameField();
-                    checkForGameWinner();
-                    console.log(player2.name + ' wins round ' + roundCount.getRoundCount()
-                     + '! He has now a gamescore of: ' + player2.getGameScore());
+                        player2.increaseGameScore();
+                        updateGameScore();
+                        makeStartButtonVisible();
+                        disableGameField();
+                        // checkForGameWinner();
+                        divInfoMonitor.textContent = `${player2.name} wins round ${roundCount.getRoundCount()}!`;
                 }
             }
-        } else if (turnCount.getTurnCount() === 9) {
-            console.log('Tie!');
+        } else if (!(gameBoard.some(Number))) {
+            divInfoMonitor.textContent = 'Tie!';
             makeStartButtonVisible();
             disableGameField()
-            checkForGameWinner();
+            // checkForGameWinner();
         }
     }
 
@@ -220,13 +222,13 @@
             player2.getGameScore() >= 2 ) 
         ) {
             if (player1.getGameScore() > player2.getGameScore()) {
-                console.log('Game Winner: ' + player1.name + ' with a result of '
+                alert('Game Winner: ' + player1.name + ' with a result of '
                      + player1.getGameScore() + ':' + player2.getGameScore());
             } else if (player1.getGameScore() < player2.getGameScore()) {
-                console.log('Game Winner: ' + player2.name + ' with a result of '
+                alert('Game Winner: ' + player2.name + ' with a result of '
                      + player1.getGameScore() + ':' + player2.getGameScore());
             } else {
-                console.log('Game ended in a tie!')
+                alert('Game ended in a tie!')
             }
         }
     }
@@ -256,12 +258,14 @@
     function makeStartButtonVisible() {
         divGameStart.style.pointerEvents = 'all';
         divGameStart.style.opacity = '1';
+        divGameStart.style.border = 'solid red 3px';
     }
 
     // Function to hide button when game gets resettet
     function makeStartButtonHide() {
         divGameStart.style.pointerEvents = 'none';
         divGameStart.style.opacity = '0.5';  
+        divGameStart.style.border = 'none';
     }
 
     // Function for displaying which player's turn it is
@@ -269,8 +273,18 @@
 
     }
 
-    // Function to remove info text from info monitor
+    // Functions to show or remove info text from info monitor
+    function removeInfoText() {
+        divInfoMonitor.textContent = '';
+    }
 
+    function showInfoText() {
+        if (turnCount.getTurnCount() % 2 !== 0) {
+            divInfoMonitor.textContent = 'Player 1 beginns!'
+        } else if (turnCount.getTurnCount() % 2 === 0) {
+            divInfoMonitor.textContent = 'Player 2 beginns!'
+        }
+    }
 
     // Event listener to reset game
     divGameReset.addEventListener('click', () => {
@@ -298,6 +312,7 @@
         updateGameScore();
         makeStartButtonHide();
         enableGameField();
+        showInfoText();
         for (const field of divFieldClick) {
             field.textContent = '';
         }
