@@ -149,14 +149,12 @@
         if (roundCount.getRoundCount() < 3) {
             startNewRound();
         } else {
-            divInfoMonitor.textContent = 'Please start a new game!';
-            
+            checkForGameWinner();
         }
     })
 
     // Function to start new round
     function startNewRound() {
-        checkForGameWinner();
         gameBoard = [
             1, 2, 3,
             4, 5, 6,
@@ -193,7 +191,6 @@
                         updateGameScore();
                         makeStartButtonVisible();
                         disableGameField()
-                        // checkForGameWinner();
                         divInfoMonitor.textContent = `${player1.name} wins round ${roundCount.getRoundCount()}!`;
                 } else if (gameBoard[combination[0]] === 'O' &&
                     gameBoard[combination[1]] === 'O' &&
@@ -202,7 +199,6 @@
                         updateGameScore();
                         makeStartButtonVisible();
                         disableGameField();
-                        // checkForGameWinner();
                         divInfoMonitor.textContent = `${player2.name} wins round ${roundCount.getRoundCount()}!`;
                 }
             }
@@ -210,7 +206,6 @@
             divInfoMonitor.textContent = 'Tie!';
             makeStartButtonVisible();
             disableGameField()
-            // checkForGameWinner();
         }
     }
 
@@ -222,13 +217,13 @@
             player2.getGameScore() >= 2 ) 
         ) {
             if (player1.getGameScore() > player2.getGameScore()) {
-                alert('Game Winner: ' + player1.name + ' with a result of '
-                     + player1.getGameScore() + ':' + player2.getGameScore());
+                divInfoMonitor.textContent = `Game Winner: ${player1.name}`;
+                // alert('Game Winner: ' + player1.name + ' with a result of ' + player1.getGameScore() + ':' + player2.getGameScore());
             } else if (player1.getGameScore() < player2.getGameScore()) {
-                alert('Game Winner: ' + player2.name + ' with a result of '
-                     + player1.getGameScore() + ':' + player2.getGameScore());
+                divInfoMonitor.textContent = `Game Winner: ${player2.name}`;
+                // alert('Game Winner: ' + player2.name + ' with a result of ' + player1.getGameScore() + ':' + player2.getGameScore());
             } else {
-                alert('Game ended in a tie!')
+                divInfoMonitor.textContent = 'Game ended in a tie!';
             }
         }
     }
@@ -259,6 +254,9 @@
         divGameStart.style.pointerEvents = 'all';
         divGameStart.style.opacity = '1';
         divGameStart.style.border = 'solid red 3px';
+        if (roundCount.getRoundCount() === 3) {
+            divGameStart.textContent = 'Results';
+        }
     }
 
     // Function to hide button when game gets resettet
@@ -266,6 +264,9 @@
         divGameStart.style.pointerEvents = 'none';
         divGameStart.style.opacity = '0.5';  
         divGameStart.style.border = 'none';
+        if (roundCount.getRoundCount() < 3) {
+            divGameStart.textContent = 'New Round';
+        }
     }
 
     // Function for displaying which player's turn it is
