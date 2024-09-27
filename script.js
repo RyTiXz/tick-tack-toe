@@ -301,9 +301,11 @@
             let confirmation = confirm('Are you sure you want to reset the game?')
             if (confirmation === true) {
                 resetGame();
+                divGameReset.style.border = 'none';
             }
         } else {
             resetGame();
+            divGameReset.style.border = 'none';
         }
     })
 
