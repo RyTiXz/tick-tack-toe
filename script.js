@@ -264,6 +264,11 @@
         divGameStart.style.opacity = '0.5';  
     }
 
+    // Function for displaying which player's turn it is
+    function playersTurn() {
+
+    }
+
     // Event listener to reset game
     divGameReset.addEventListener('click', () => {
         if (roundCount.getRoundCount() < 3) {
@@ -302,6 +307,7 @@
 TO DO:
 - Build ingame display to show winner
 - Build instructions button
+- Build function to show which player's turn it is
 - Refractor Code into objects, get rid of huge IIFE
 - Style game
 
