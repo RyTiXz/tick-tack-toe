@@ -248,7 +248,7 @@
     // Function to enable gameField after new round is started
     function enableGameField() {
         divFieldClick.forEach(divFieldClick => {
-            divFieldClick.classList.remove('disabled');
+            divFieldClick.classList.remove('disabled', 'P1', 'P2');
         })
     }
 
@@ -268,6 +268,9 @@
     function playersTurn() {
 
     }
+
+    // Function to remove info text from info monitor
+
 
     // Event listener to reset game
     divGameReset.addEventListener('click', () => {
