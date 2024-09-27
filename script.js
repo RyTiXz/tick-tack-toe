@@ -28,6 +28,7 @@
                 if (gameBoard.includes(input)) {
                     gameBoard[index] = 'X';
                     field.textContent = 'X';
+                    field.classList.add('P1');
                     checkForWin();
                     turnCount.increaseTurnCount();
                 }
@@ -35,6 +36,7 @@
                 if (gameBoard.includes(input)) {
                     gameBoard[index] = 'O';
                     field.textContent = 'O';
+                    field.classList.add('P2');
                     checkForWin();
                     turnCount.increaseTurnCount();
                 }
