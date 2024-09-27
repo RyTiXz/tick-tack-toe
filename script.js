@@ -146,7 +146,7 @@
 
     // Event listener for new Round
     divGameStart.addEventListener('click', () => {
-        if (roundCount.getRoundCount() < 3) {
+        if (!checkForGameWinner()) {
             startNewRound();
         } else {
             checkForGameWinner();
@@ -190,7 +190,10 @@
                         player1.increaseGameScore();
                         updateGameScore();
                         makeStartButtonVisible();
-                        disableGameField()
+                        disableGameField();
+                        if (player1.getGameScore() > 1) {
+                            divGameStart.textContent = 'Result';
+                        }
                         divInfoMonitor.textContent = `${player1.name} wins round ${roundCount.getRoundCount()}!`;
                 } else if (gameBoard[combination[0]] === 'O' &&
                     gameBoard[combination[1]] === 'O' &&
@@ -199,6 +202,9 @@
                         updateGameScore();
                         makeStartButtonVisible();
                         disableGameField();
+                        if (player1.getGameScore() > 1) {
+                            divGameStart.textContent = 'Result';
+                        }
                         divInfoMonitor.textContent = `${player2.name} wins round ${roundCount.getRoundCount()}!`;
                 }
             }
@@ -214,16 +220,20 @@
         if (
             roundCount.getRoundCount() === 3 && (
             player1.getGameScore() >= 2 || 
-            player2.getGameScore() >= 2 ) 
+            player2.getGameScore() >= 2 )
         ) {
             if (player1.getGameScore() > player2.getGameScore()) {
                 divInfoMonitor.textContent = `Game Winner: ${player1.name}`;
-                // alert('Game Winner: ' + player1.name + ' with a result of ' + player1.getGameScore() + ':' + player2.getGameScore());
+                disableGameField();
+                divGameReset.style.border = 'solid red 3px';
             } else if (player1.getGameScore() < player2.getGameScore()) {
                 divInfoMonitor.textContent = `Game Winner: ${player2.name}`;
-                // alert('Game Winner: ' + player2.name + ' with a result of ' + player1.getGameScore() + ':' + player2.getGameScore());
+                disableGameField();
+                divGameReset.style.border = 'solid red 3px';
             } else {
                 divInfoMonitor.textContent = 'Game ended in a tie!';
+                disableGameField();
+                divGameReset.style.border = 'solid red 3px';
             }
         }
     }
@@ -254,9 +264,7 @@
         divGameStart.style.pointerEvents = 'all';
         divGameStart.style.opacity = '1';
         divGameStart.style.border = 'solid red 3px';
-        if (roundCount.getRoundCount() === 3) {
-            divGameStart.textContent = 'Results';
-        }
+        divGameStart.textContent = 'New Round';
     }
 
     // Function to hide button when game gets resettet
@@ -264,7 +272,7 @@
         divGameStart.style.pointerEvents = 'none';
         divGameStart.style.opacity = '0.5';  
         divGameStart.style.border = 'none';
-        if (roundCount.getRoundCount() < 3) {
+        if (!checkForGameWinner()) {
             divGameStart.textContent = 'New Round';
         }
     }
