@@ -30,18 +30,18 @@ const Game = (function() {
                     gameBoard[index] = 'X';
                     field.textContent = 'X';
                     field.classList.add('P1');
-                    checkForWin();
                     turnCount.increaseTurnCount();
                     showInfoText();
+                    checkForWin();
                 }
             } else if (turnCount.getTurnCount() % 2 === 0) {
                 if (gameBoard.includes(input)) {
                     gameBoard[index] = 'O';
                     field.textContent = 'O';
                     field.classList.add('P2');
-                    checkForWin();
                     turnCount.increaseTurnCount();
                     showInfoText();
+                    checkForWin();
                 }
             }
         }
@@ -151,6 +151,7 @@ const Game = (function() {
         }
         else {
             startNewRound()
+            showInfoText();
         };
     });
 
@@ -322,9 +323,9 @@ const Game = (function() {
     }
 
     // Functions to show or remove info text from info monitor
-    function removeInfoText() {
-        divInfoMonitor.textContent = '';
-    }
+    // function removeInfoText() {
+    //     divInfoMonitor.textContent = '';
+    // }
 
     function showInfoText() {
         if (turnCount.getTurnCount() % 2 !== 0) {
