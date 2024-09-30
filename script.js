@@ -14,6 +14,7 @@
     const divScoreCountP1 = document.querySelector('#scorePlayer1')
     const divScoreCountP2 = document.querySelector('#scorePlayer2')
     const divInfoMonitor = document.querySelector('.infoMonitor')
+    const divInstructionButton = document.querySelector('.instruction')
 
     // Function to build game field and check for win condition
     for (const field of divFieldClick) {
@@ -295,6 +296,12 @@
         }
     }
 
+    // Event Listener to show instructions
+    divInstructionButton.addEventListener('click', () => {
+        let popup = document.querySelector("#instructionFunctionID");
+        popup.classList.toggle("show");
+    })
+
     // Event listener to reset game
     divGameReset.addEventListener('click', () => {
         if (roundCount.getRoundCount() < 3) {
@@ -328,19 +335,18 @@
             field.textContent = '';
         }
     }
-    
 
 })();
 
 /* 
 TO DO:
-- Build ingame display to show winner
 - Build instructions button
 - Build function to show which player's turn it is
 - Refractor Code into objects, get rid of huge IIFE
 - Style game
 
 DONE
+- Build ingame display to show winner
 - Build funtionality if no player wins!
 - 'Start new round' also works when there is no winner but counts round number up
 - build better function for check win function (don't repeat!)
