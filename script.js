@@ -1,4 +1,3 @@
-
 (function() {
     let gameBoard = [
         1, 2, 3,
