@@ -127,7 +127,7 @@ body {
 }
 
 .instruction .instructionText {
-    visibility: show;
+    visibility: hidden;
     width: 250px;
     background-color: #555;
     color: #fff;
@@ -137,6 +137,7 @@ body {
     position: absolute;
     z-index: 1;
     left: -100%;
+    top: 125%;
   }
 
   .instruction .show {
