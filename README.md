@@ -7,6 +7,7 @@ Dynamic game board displayed in the browser.
 The game detects wins, losses, and ties.
 Reset the game board to play again.
 Clear separation between game logic and display.
+
 🚀 Technologies Used
 HTML5: For the structure of the game board and elements.
 CSS3: For styling the game board and visual layout.
