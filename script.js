@@ -345,6 +345,7 @@ TO DO:
 - Style game
 
 DONE
+- after three played rounds, showing results doesn't work
 - Build instructions button
 - Build ingame display to show winner
 - Build funtionality if no player wins!
