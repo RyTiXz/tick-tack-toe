@@ -11,8 +11,6 @@
     const divGameStart = document.querySelector('.gameStart');
     const divGameReset = document.querySelector('.gameReset');
     const divRoundCount = document.querySelector('#roundCounter')
-    const divPlayer1 = document.querySelector('.player1')
-    const divPlayer2 = document.querySelector('.player2')
     const divScoreCountP1 = document.querySelector('#scorePlayer1')
     const divScoreCountP2 = document.querySelector('#scorePlayer2')
     const divInfoMonitor = document.querySelector('.infoMonitor')
@@ -193,7 +191,7 @@
                     gameBoard[combination[2]] === 'X') {
                         player1.increaseGameScore();
                         updateGameScore();
-                        makeStartButtonVisible();
+                        makeButtonVisible();
                         disableGameField();
                         if (player1.getGameScore() > 1) {
                             divGameStart.textContent = 'Result';
@@ -204,7 +202,7 @@
                     gameBoard[combination[2]] === 'O') {
                         player2.increaseGameScore();
                         updateGameScore();
-                        makeStartButtonVisible();
+                        makeButtonVisible();
                         disableGameField();
                         if (player2.getGameScore() > 1) {
                             divGameStart.textContent = 'Result';
@@ -214,7 +212,7 @@
             }
         } else if (!(gameBoard.some(Number))) {
             divInfoMonitor.textContent = 'Tie!';
-            makeStartButtonVisible();
+            makeButtonVisible();
             disableGameField()
             if (roundCount.getRoundCount() === 3) {
                 divGameStart.textContent = 'Result';
@@ -263,8 +261,8 @@
         })
     }
 
-    // Function to only show 'start round' button after round 1
-    function makeStartButtonVisible() {
+    // Function to only show 'new round' and 'reset game' button after round 1
+    function makeButtonVisible() {
         divGameStart.style.pointerEvents = 'all';
         divGameStart.style.opacity = '1';
         divGameReset.style.pointerEvents = 'all';
@@ -273,7 +271,7 @@
         divGameStart.textContent = 'New Round';
     }
 
-    // Function to hide button when game gets resettet
+    // Function to hide button when game gets reset
     function makeStartButtonHide() {
         divGameStart.style.pointerEvents = 'none';
         divGameStart.style.opacity = '0.5';  
