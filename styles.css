@@ -87,6 +87,13 @@ body {
 
 .player1 {
     grid-area: 2 / 1 / 3 / 2;
+    margin-top: 5px;
+    padding: 2px;
+}
+
+.turn {
+    border: 3px green solid;
+    border-radius: 5px;
 }
 
 .roundCounter {
@@ -95,6 +102,8 @@ body {
 
 .player2 {
     grid-area: 2 / 3 / 3 / 4;
+    margin-top: 5px;
+    padding: 2px;
 }
 
 .gameStart {
@@ -140,9 +149,10 @@ body {
 .gameReset {
     grid-area: 3 / 3 / 4 / 4;
     margin: 5px;
+    opacity: 0.5;
+    pointer-events: none;
     background-color: lightseagreen;
     border-radius: 5px;
-
 }
 
 .gameField {

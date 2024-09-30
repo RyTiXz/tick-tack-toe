@@ -11,6 +11,8 @@
     const divGameStart = document.querySelector('.gameStart');
     const divGameReset = document.querySelector('.gameReset');
     const divRoundCount = document.querySelector('#roundCounter')
+    const divPlayer1 = document.querySelector('.player1')
+    const divPlayer2 = document.querySelector('.player2')
     const divScoreCountP1 = document.querySelector('#scorePlayer1')
     const divScoreCountP2 = document.querySelector('#scorePlayer2')
     const divInfoMonitor = document.querySelector('.infoMonitor')
@@ -147,12 +149,13 @@
 
     // Event listener for new Round
     divGameStart.addEventListener('click', () => {
-        if (!checkForGameWinner()) {
-            startNewRound();
-        } else {
+        if (divGameStart.textContent === 'Result') {
             checkForGameWinner();
         }
-    })
+        else {
+            startNewRound()
+        };
+    });
 
     // Function to start new round
     function startNewRound() {
@@ -203,7 +206,7 @@
                         updateGameScore();
                         makeStartButtonVisible();
                         disableGameField();
-                        if (player1.getGameScore() > 1) {
+                        if (player2.getGameScore() > 1) {
                             divGameStart.textContent = 'Result';
                         }
                         divInfoMonitor.textContent = `${player2.name} wins round ${roundCount.getRoundCount()}!`;
@@ -213,30 +216,30 @@
             divInfoMonitor.textContent = 'Tie!';
             makeStartButtonVisible();
             disableGameField()
+            if (roundCount.getRoundCount() === 3) {
+                divGameStart.textContent = 'Result';
+            }
         }
     }
 
     // Function to check for Game winner after 3 Rounds
     function checkForGameWinner() {
-        if (
-            roundCount.getRoundCount() === 3 && (
-            player1.getGameScore() >= 2 || 
-            player2.getGameScore() >= 2 )
-        ) {
             if (player1.getGameScore() > player2.getGameScore()) {
                 divInfoMonitor.textContent = `Game Winner: ${player1.name}`;
-                disableGameField();
                 divGameReset.style.border = 'solid red 3px';
+                disableGameField();
+                makeStartButtonHide();
             } else if (player1.getGameScore() < player2.getGameScore()) {
                 divInfoMonitor.textContent = `Game Winner: ${player2.name}`;
-                disableGameField();
                 divGameReset.style.border = 'solid red 3px';
+                disableGameField();
+                makeStartButtonHide();
             } else {
                 divInfoMonitor.textContent = 'Game ended in a tie!';
-                disableGameField();
                 divGameReset.style.border = 'solid red 3px';
+                disableGameField();
+                makeStartButtonHide();
             }
-        }
     }
 
     // Function to update Game Scores
@@ -264,6 +267,8 @@
     function makeStartButtonVisible() {
         divGameStart.style.pointerEvents = 'all';
         divGameStart.style.opacity = '1';
+        divGameReset.style.pointerEvents = 'all';
+        divGameReset.style.opacity = '1';
         divGameStart.style.border = 'solid red 3px';
         divGameStart.textContent = 'New Round';
     }
@@ -273,14 +278,7 @@
         divGameStart.style.pointerEvents = 'none';
         divGameStart.style.opacity = '0.5';  
         divGameStart.style.border = 'none';
-        if (!checkForGameWinner()) {
-            divGameStart.textContent = 'New Round';
-        }
-    }
-
-    // Function for displaying which player's turn it is
-    function playersTurn() {
-
+        divGameStart.textContent = 'New Round';
     }
 
     // Functions to show or remove info text from info monitor
@@ -308,12 +306,15 @@
             let confirmation = confirm('Are you sure you want to reset the game?')
             if (confirmation === true) {
                 resetGame();
+                divGameReset.style.pointerEvents = 'none';
+                divGameReset.style.opacity = '0.5';  
                 divGameReset.style.border = 'none';
             }
         } else {
             resetGame();
-            divGameReset.style.border = 'none';
-        }
+            divGameReset.style.pointerEvents = 'none';
+            divGameReset.style.opacity = '0.5';  
+            divGameReset.style.border = 'none';        }
     })
 
     // Function to reset complete game
@@ -340,12 +341,11 @@
 
 /* 
 TO DO:
-- Build instructions button
-- Build function to show which player's turn it is
 - Refractor Code into objects, get rid of huge IIFE
 - Style game
 
 DONE
+- Build instructions button
 - Build ingame display to show winner
 - Build funtionality if no player wins!
 - 'Start new round' also works when there is no winner but counts round number up
@@ -359,4 +359,8 @@ DONE
 - Add 'are you sure?' question when clicking reset button while roundCount() is < 3
 - Round 4 is shown after 3 rounds played
 
+Notes about winning conditions:
+- 3 rounds played, one has more points
+- 3 rounds played, tie
+- 2 rounds played, one has two points 
 */
