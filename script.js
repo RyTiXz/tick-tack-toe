@@ -1,4 +1,4 @@
-(function() {
+const Game = (function() {
     let gameBoard = [
         1, 2, 3,
         4, 5, 6,
@@ -195,6 +195,9 @@
                         if (player1.getGameScore() > 1) {
                             divGameStart.textContent = 'Result';
                         }
+                        if (player1.getGameScore() < 2 && roundCount.getRoundCount() ===3) {
+                            divGameStart.textContent = 'Result';
+                        }
                         divInfoMonitor.textContent = `${player1.name} wins round ${roundCount.getRoundCount()}!`;
                 } else if (gameBoard[combination[0]] === 'O' &&
                     gameBoard[combination[1]] === 'O' &&
@@ -204,6 +207,9 @@
                         makeButtonVisible();
                         disableGameField();
                         if (player2.getGameScore() > 1) {
+                            divGameStart.textContent = 'Result';
+                        }
+                        if (player2.getGameScore() < 2 && roundCount.getRoundCount() ===3) {
                             divGameStart.textContent = 'Result';
                         }
                         divInfoMonitor.textContent = `${player2.name} wins round ${roundCount.getRoundCount()}!`;
@@ -238,6 +244,43 @@
                 makeStartButtonHide();
             }
     }
+
+    // Event listener to reset game
+    divGameReset.addEventListener('click', () => {
+        if (roundCount.getRoundCount() < 3) {
+            let confirmation = confirm('Are you sure you want to reset the game?')
+            if (confirmation === true) {
+                resetGame();
+                divGameReset.style.pointerEvents = 'none';
+                divGameReset.style.opacity = '0.5';  
+                divGameReset.style.border = 'none';
+            }
+        } else {
+            resetGame();
+            divGameReset.style.pointerEvents = 'none';
+            divGameReset.style.opacity = '0.5';  
+            divGameReset.style.border = 'none';        }
+    })
+
+    // Function to reset complete game
+    function resetGame() {
+        gameBoard = [
+            1, 2, 3,
+            4, 5, 6,
+            7, 8, 9
+        ];
+        roundCount.resetRoundCount();
+        turnCount.resetTurnCount();
+        player1.resetGameScore();
+        player2.resetGameScore();
+        updateGameScore();
+        makeStartButtonHide();
+        enableGameField();
+        showInfoText();
+        for (const field of divFieldClick) {
+            field.textContent = '';
+        }
+    }    
 
     // Function to update Game Scores
     function updateGameScore() {
@@ -296,44 +339,6 @@
         let popup = document.querySelector("#instructionFunctionID");
         popup.classList.toggle("show");
     })
-
-    // Event listener to reset game
-    divGameReset.addEventListener('click', () => {
-        if (roundCount.getRoundCount() < 3) {
-            let confirmation = confirm('Are you sure you want to reset the game?')
-            if (confirmation === true) {
-                resetGame();
-                divGameReset.style.pointerEvents = 'none';
-                divGameReset.style.opacity = '0.5';  
-                divGameReset.style.border = 'none';
-            }
-        } else {
-            resetGame();
-            divGameReset.style.pointerEvents = 'none';
-            divGameReset.style.opacity = '0.5';  
-            divGameReset.style.border = 'none';        }
-    })
-
-    // Function to reset complete game
-    function resetGame() {
-        gameBoard = [
-            1, 2, 3,
-            4, 5, 6,
-            7, 8, 9
-        ];
-        roundCount.resetRoundCount();
-        turnCount.resetTurnCount();
-        player1.resetGameScore();
-        player2.resetGameScore();
-        updateGameScore();
-        makeStartButtonHide();
-        enableGameField();
-        showInfoText();
-        for (const field of divFieldClick) {
-            field.textContent = '';
-        }
-    }
-
 })();
 
 /* 
