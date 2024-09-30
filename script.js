@@ -30,18 +30,18 @@ const Game = (function() {
                     gameBoard[index] = 'X';
                     field.textContent = 'X';
                     field.classList.add('P1');
-                    removeInfoText();
                     checkForWin();
                     turnCount.increaseTurnCount();
+                    showInfoText();
                 }
             } else if (turnCount.getTurnCount() % 2 === 0) {
                 if (gameBoard.includes(input)) {
                     gameBoard[index] = 'O';
                     field.textContent = 'O';
                     field.classList.add('P2');
-                    removeInfoText();
                     checkForWin();
                     turnCount.increaseTurnCount();
+                    showInfoText();
                 }
             }
         }
@@ -328,9 +328,9 @@ const Game = (function() {
 
     function showInfoText() {
         if (turnCount.getTurnCount() % 2 !== 0) {
-            divInfoMonitor.textContent = 'Player 1 beginns!'
+            divInfoMonitor.textContent = 'Player 1\'s turn!'
         } else if (turnCount.getTurnCount() % 2 === 0) {
-            divInfoMonitor.textContent = 'Player 2 beginns!'
+            divInfoMonitor.textContent = 'Player 2\'s turn!'
         }
     }
 
